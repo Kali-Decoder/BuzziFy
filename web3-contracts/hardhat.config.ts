@@ -83,6 +83,11 @@ module.exports = {
       url: "https://base.drpc.org",
       accounts: ACCOUNTS,
     },
+    baseSepolia:{
+      chainId: 84532,
+      url:"https://sepolia.base.org",
+      accounts: ACCOUNTS,
+    },
     avalanche: {
       chainId: 43114,
       url: "https://avalanche.drpc.org",
@@ -116,6 +121,7 @@ module.exports = {
       avalanche: "not needed",
       arbitrum: "I392RYY2UE7CETV9X25YJ6PA5BHP3D4ADD",
       holesky: "Y5TY1V4KP6TYSFI2CSZJE12HU5H3YZ7TZB",
+      baseSepolia:"8VP9YW357XEY3FW4T5HEM84BNHV15KYHW6"
     },
     customChains: [
       {
