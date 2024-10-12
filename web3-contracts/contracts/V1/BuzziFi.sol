@@ -47,8 +47,8 @@ contract BuzziFi {
         pools[pool_id].poolEnded = false;
         pools[pool_id].finalScore = 0;
         pools[pool_id].startTime = block.timestamp;
-        pools[pool_id].endTime = block.timestamp + 5 minutes;
-
+        pools[pool_id].endTime = block.timestamp + 60 minutes;
+       
         unchecked{
             pool_id += 1;
         }
@@ -104,11 +104,9 @@ contract BuzziFi {
         );
         pools[_pool_id].poolEnded = true;
         pools[_pool_id].finalScore = _finalScore;
-
         _calculationReward(_pool_id);
  
     }
-// Pool Terminologies <> superfluid Pool Terminologies 
 
     function _calculationReward(uint256 _pool_id) private {
         Pool storage pool = pools[_pool_id];
