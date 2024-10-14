@@ -19,9 +19,13 @@ interface DataContextProps {
   ) => Promise<Contract | undefined>;
   getTokenBalance: () => Promise<BigNumber | undefined>;
   createPool: () => Promise<void>;
-  placeBet: (poolId: number, amount: number,targetScore:number) => Promise<void>;
+  placeBet: (
+    poolId: number,
+    amount: number,
+    targetScore: number
+  ) => Promise<void>;
   claimBet: (poolId: number) => Promise<void>;
-  getPoolDetail: (poolId: number) => Promise<any>;
+  getPoolsDetails: (poolId: number) => Promise<any>;
 }
 
 interface DataContextProviderProps {
@@ -47,6 +51,7 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
   }, [chain?.id]);
 
   const signer = useEthersSigner({ chainId: activeChain });
+
   const getContractInstance = async (
     contractAddress: string,
     contractAbi: any
@@ -68,8 +73,10 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
     try {
       const tokenContract = await getContractInstance(tokenAddress, tokenAbi);
       if (tokenContract) {
-        const balance = await tokenContract.balanceOf(address);
-        setTokenBalance(+balance);
+        let balance = await tokenContract.balanceOf(address);
+        balance = +balance.div(BigNumber.from(10).pow(18)).toString();
+        setTokenBalance(balance);
+        console.log("Token balance", balance);
         return balance;
       }
     } catch (error) {
@@ -98,27 +105,45 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
     }
   };
 
-
-  const placeBet = async (poolId: number, amount: number,predictScore:number) => {
+  const placeBet = async (
+    poolId: number,
+    amount: number,
+    predictScore: number
+  ) => {
+    let id = await toast.loading("Placing bet...");
     try {
       const mainContract = await getContractInstance(
         mainContractAddress,
         mainContractABI
       );
-      if (mainContract) {
-        const tx = await mainContract.placeBet( amount,predictScore,poolId);
-        await tx.wait();
-        toast.success("Bet placed successfully");
+      amount = ethers.utils.parseEther(amount.toString());
+      const tokenContract = await getContractInstance(tokenAddress, tokenAbi);
+      console.log("tokenContract", tokenContract);
+      if (tokenContract) {
+        const allowance = await tokenContract.allowance(
+          address,
+          mainContractAddress
+        );
+        if (allowance.lt(amount)) {
+          const tx = await tokenContract.approve(mainContractAddress, amount);
+          await tx.wait();
+        }
       }
 
+      if (mainContract) {
+        const tx = await mainContract.placeBet(amount, predictScore, poolId);
+        await tx.wait();
+      }
+
+      toast.success("Bet placed successfully", {
+        id,
+      });
       return;
     } catch (error) {
-      console.log("Error in placing bet");
-      toast.error("Error in placing bet");
+      toast.error("Error in placing bet", { id });
       return;
     }
   };
-
 
   const claimBet = async (poolId: number) => {
     try {
@@ -140,8 +165,7 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
     }
   };
 
-
-  const setResultScore = async (poolId: number,finalScore:number) => {
+  const setResultScore = async (poolId: number, finalScore: number) => {
     try {
       const mainContract = await getContractInstance(
         mainContractAddress,
@@ -149,7 +173,7 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
       );
 
       if (mainContract) {
-        const tx = await mainContract.setResult(poolId,finalScore);
+        const tx = await mainContract.setResult(poolId, finalScore);
         await tx.wait();
         toast.success("Result set successfully");
       }
@@ -159,47 +183,77 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
       console.log("Error in setting result");
       toast.error("Error in setting result");
       return;
-
     }
-
   };
-  const getPoolDetail  = async (poolId:number) => {
-    let poolDetail = {
-      pool:{},
-      bets:[]
-    }
+  const getPoolsDetails = async () => {
+    let poolDetails = {
+      pool: [] as any,
+      bets: [] as any,
+    };
     try {
-      const mainContract = await getContractInstance(
-        mainContractAddress,
-        mainContractABI
-      );
-      if (mainContract) {
-        const pool = await mainContract.pools(poolId);
-        poolDetail.pool = pool;
-        const bets = await mainContract.bets(poolId);
-        poolDetail.bets = bets;
-        return poolDetail;
-      }
-    }catch (error) {
-      console.log("Error in getting pool detail");
-      return poolDetail;
+      //   const mainContract = await getContractInstance(
+      //     mainContractAddress,
+      //     mainContractABI
+      //   );
+      //   console.log("mainContract",mainContract);
+      //  let id = await mainContract.getPoolId();
+      //  console.log("id",id);
+      //   if (mainContract) {
+      //     for (let i = 0; i < maxPoolId; i++) {
+      //       const pool = await mainContract.pools(i);
 
+      //       let poolObj = {
+      //         poolId:i,
+      //         total_amount:+pool.total_amount.div(BigNumber.from(10).pow(18)).toString(),
+      //         total_bets:+pool.total_bets.toString(),
+      //         finalScore:+pool.finalScore.toString(),
+      //         startTime:+pool.startTime.toString(),
+      //         endTime:+pool.endTime.toString(),
+      //         poolEnded:pool.poolEnded,
+      //       }
+      //       poolDetails.pool.push(poolObj);
+      //       for(let y =0 ; y < bets.length; y++){
+      //         const bets = await mainContract.bets(i,y);
+      //         let betObj = {
+      //           user: bets[y].user,
+      //           amount: bets[y].amount,
+      //           targetScore: bets[y].targetScore,
+      //           claimedAmount: bets[y].claimedAmount,
+      //           claimed: bets[y].claimed,
+      //         }
+      //         poolDetails.bets.push(betObj);
+      //       }
+      //     }
+
+      console.log("Pool details", poolDetails);
+      return poolDetails;
+      // }
+    } catch (error) {
+      console.log(error, "Error in getting pool detail");
+      return poolDetails;
     }
   };
   useEffect(() => {
     if (!signer) return;
     getTokenBalance();
-  }, [address]);
+    getPoolsDetails();
+  }, [signer]);
 
-  return <DataContext.Provider value={{
-    tokenBalance,
-    getContractInstance,
-    getTokenBalance,
-    createPool,
-    placeBet,
-    claimBet,
-    getPoolDetail
-  }}>{children}</DataContext.Provider>;
+  return (
+    <DataContext.Provider
+      value={{
+        tokenBalance,
+        getContractInstance,
+        getTokenBalance,
+        createPool,
+        placeBet,
+        claimBet,
+        getPoolsDetails,
+      }}
+    >
+      {children}
+    </DataContext.Provider>
+  );
 };
 
 export const useDataContext = () => {

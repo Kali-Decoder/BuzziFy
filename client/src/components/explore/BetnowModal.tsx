@@ -61,7 +61,8 @@ const BetNowModal: React.FC<BetNowModalProps> = ({ isOpen, onClose }) => {
           x={scorePrediction}
           onChange={({ x }) => setScorePrediction(x)}
           xmin={0}
-          xmax={100}
+          xmax={500}
+          xstep={20}
           styles={{
             track: {
               backgroundColor: "gray",

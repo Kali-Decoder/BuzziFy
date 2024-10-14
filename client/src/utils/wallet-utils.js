@@ -127,7 +127,7 @@ export const connectors = connectorsForWallets(
     },
   ],
   {
-    appName: "Reels-Fi",
+    appName: "BuzziFy",
     projectId: projectId,
   }
 );

@@ -678,7 +678,7 @@ export const tokenAbi = [
     "type": "function"
   }
 ];
-export const mainContractAddress = "0x7AD1a4b60c8C265a951459B4888354D1339c3cDa";
+export const mainContractAddress = "0xdeBCD0975753BFE290CE7ca42ffB5CE7917463F2";
 export const mainContractABI = [
   {
     "inputs": [
@@ -810,6 +810,65 @@ export const mainContractABI = [
     "name": "createPool",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_pool_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getBets",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "user",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "targetScore",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "claimedAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "claimed",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct BuzziFi.Bet[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getPoolId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {

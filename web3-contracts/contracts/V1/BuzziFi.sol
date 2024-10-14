@@ -47,7 +47,7 @@ contract BuzziFi {
         pools[pool_id].poolEnded = false;
         pools[pool_id].finalScore = 0;
         pools[pool_id].startTime = block.timestamp;
-        pools[pool_id].endTime = block.timestamp + 60 minutes;
+        pools[pool_id].endTime = block.timestamp +  7 days;
        
         unchecked{
             pool_id += 1;
@@ -155,6 +155,13 @@ contract BuzziFi {
         emit BetClaimed(msg.sender, reward);
     }
 
+
+    function getBets(uint256 _pool_id) external view returns (Bet[] memory) {
+        return bets[_pool_id];
+    }
+    function getPoolId() external view returns (uint256) {
+        return pool_id;
+    }   
     // Withdraw tokens by the contract owner (if unclaimed)
     function withdraw(uint256 amount, address _receiver) external onlyOwner {
         require(token.transfer(_receiver, amount), "Token transfer failed");
