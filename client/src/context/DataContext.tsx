@@ -146,6 +146,7 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
   };
 
   const claimBet = async (poolId: number) => {
+    let id = await toast.loading("Claiming bet...");
     try {
       const mainContract = await getContractInstance(
         mainContractAddress,
@@ -154,18 +155,17 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
       if (mainContract) {
         const tx = await mainContract.claimBet(poolId);
         await tx.wait();
-        toast.success("Bet claimed successfully");
+        toast.success("Bet claimed successfully",{id});
       }
-
       return;
     } catch (error) {
-      console.log("Error in claiming bet");
-      toast.error("Error in claiming bet");
+      toast.error("Error in claiming bet",{id});
       return;
     }
   };
 
   const setResultScore = async (poolId: number, finalScore: number) => {
+    
     try {
       const mainContract = await getContractInstance(
         mainContractAddress,
@@ -191,43 +191,40 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
       bets: [] as any,
     };
     try {
-      //   const mainContract = await getContractInstance(
-      //     mainContractAddress,
-      //     mainContractABI
-      //   );
-      //   console.log("mainContract",mainContract);
-      //  let id = await mainContract.getPoolId();
-      //  console.log("id",id);
-      //   if (mainContract) {
-      //     for (let i = 0; i < maxPoolId; i++) {
-      //       const pool = await mainContract.pools(i);
-
-      //       let poolObj = {
-      //         poolId:i,
-      //         total_amount:+pool.total_amount.div(BigNumber.from(10).pow(18)).toString(),
-      //         total_bets:+pool.total_bets.toString(),
-      //         finalScore:+pool.finalScore.toString(),
-      //         startTime:+pool.startTime.toString(),
-      //         endTime:+pool.endTime.toString(),
-      //         poolEnded:pool.poolEnded,
-      //       }
-      //       poolDetails.pool.push(poolObj);
-      //       for(let y =0 ; y < bets.length; y++){
-      //         const bets = await mainContract.bets(i,y);
-      //         let betObj = {
-      //           user: bets[y].user,
-      //           amount: bets[y].amount,
-      //           targetScore: bets[y].targetScore,
-      //           claimedAmount: bets[y].claimedAmount,
-      //           claimed: bets[y].claimed,
-      //         }
-      //         poolDetails.bets.push(betObj);
-      //       }
-      //     }
-
-      console.log("Pool details", poolDetails);
+        const mainContract = await getContractInstance(
+          mainContractAddress,
+          mainContractABI
+        );
+       let maxPoolId = +(await mainContract.getPoolId()).toString();
+       
+        if (mainContract) {
+          for (let i = 0; i < maxPoolId; i++) {
+            const pool = await mainContract.pools(i);
+            let poolObj = {
+              poolId:i,
+              total_amount:+pool.total_amount.div(BigNumber.from(10).pow(18)).toString(),
+              total_bets:+pool.total_bets.toString(),
+              finalScore:+pool.finalScore.toString(),
+              startTime:+pool.startTime.toString(),
+              endTime:+pool.endTime.toString(),
+              poolEnded:pool.poolEnded,
+            }
+            poolDetails.pool.push(poolObj);
+            let bets = await mainContract.getBets(i);
+            for(let y =0 ; y < bets.length; y++){
+              const bets = await mainContract.bets(i,y);
+              let betObj = {
+                user: bets[y].user,
+                amount: bets[y].amount,
+                targetScore: bets[y].targetScore,
+                claimedAmount: bets[y].claimedAmount,
+                claimed: bets[y].claimed,
+              }
+              poolDetails.bets.push(betObj);
+            }
+          }
       return poolDetails;
-      // }
+      }
     } catch (error) {
       console.log(error, "Error in getting pool detail");
       return poolDetails;
