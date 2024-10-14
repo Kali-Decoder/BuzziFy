@@ -2,7 +2,7 @@ import { ethers } from "hardhat";
 
 async function placeBet(amount: any, score: number, id: number) {
   const BUZZIFY_CONTRACT_NAME = "BuzziFi";
-  const BuzzifyAddress = "0x72105396D6b1c1378581D5Be21683A6470c1F2aE";
+  const BuzzifyAddress = "0x7AD1a4b60c8C265a951459B4888354D1339c3cDa";
   const sender = new ethers.Wallet(
     process.env.DEPLOYER_ACCOUNT_PRIV_KEY as any,
     ethers.provider
