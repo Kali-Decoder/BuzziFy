@@ -8,7 +8,7 @@ import EngagementGraph from "@/components/explore/EngagementGraph";
 import LikeGraph from "@/components/explore/LikeGraph";
 import FollowerGraph from "@/components/explore/FollowersGraph";
 import Dropdown from "@/components/Resusables/Dropdown";
-
+import ActivityTab from "@/components/explore/ActivityTab";
 const mockProfileData = {
   id: 1,
   name: "0xcBe600349CE4cF89842Bc371E4a4062140CDCCcD",
@@ -108,6 +108,7 @@ const ProfilePage: React.FC = () => {
 
       {/* Tab Content */}
       {activeTab === "posts" && <PostsGrid posts={profileData.posts} />}
+      {activeTab==="activity" && <ActivityTab/>}
       {activeTab === "highlights" && (
         <div className="flex justify-between items-center w-full mb-4">
           <div>Highlights Content</div>

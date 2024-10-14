@@ -26,6 +26,8 @@ interface DataContextProps {
   ) => Promise<void>;
   claimBet: (poolId: number) => Promise<void>;
   getPoolsDetails: (poolId: number) => Promise<any>;
+  totalPools: [] | undefined;
+  poolBets: [] | undefined;
 }
 
 interface DataContextProviderProps {
@@ -42,6 +44,9 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
 }) => {
   const [tokenBalance, setTokenBalance] = useState<BigNumber | undefined>();
   const { address, chain } = useAccount();
+  const [totalPools, setTotalPools] = useState<[]>([]);
+  const [poolBets, setPoolBets] = useState<[]>([]);
+
   const [activeChain, setActiveChainId] = useState<number | undefined>(
     chain?.id
   );
@@ -165,7 +170,7 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
   };
 
   const setResultScore = async (poolId: number, finalScore: number) => {
-    
+
     try {
       const mainContract = await getContractInstance(
         mainContractAddress,
@@ -211,18 +216,20 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
             }
             poolDetails.pool.push(poolObj);
             let bets = await mainContract.getBets(i);
+            console.log("Bets", bets);
             for(let y =0 ; y < bets.length; y++){
-              const bets = await mainContract.bets(i,y);
               let betObj = {
                 user: bets[y].user,
-                amount: bets[y].amount,
-                targetScore: bets[y].targetScore,
-                claimedAmount: bets[y].claimedAmount,
+                amount:+bets[y].amount.div(BigNumber.from(10).pow(18)).toString(),
+                targetScore: +bets[y].targetScore.toString(),
+                claimedAmount: +bets[y].claimedAmount.toString(),
                 claimed: bets[y].claimed,
               }
               poolDetails.bets.push(betObj);
             }
           }
+          setTotalPools(poolDetails?.pool);
+          setPoolBets(poolDetails?.bets);
       return poolDetails;
       }
     } catch (error) {
@@ -246,6 +253,8 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
         placeBet,
         claimBet,
         getPoolsDetails,
+        totalPools,
+        poolBets,
       }}
     >
       {children}

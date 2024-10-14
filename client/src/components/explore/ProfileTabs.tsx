@@ -21,6 +21,12 @@ const ProfileTabs: React.FC<ProfileTabsProps> = ({ activeTab, setActiveTab }) =>
         >
           Highlights
         </li>
+        <li
+          className={`cursor-pointer py-3 ${activeTab === "activity" ? "border-b-2 font-semibold border-blue-500 text-p4" : ""}`}
+          onClick={() => setActiveTab("activity")}
+        >
+          Activity
+        </li>
       </ul>
     </div>
   );
