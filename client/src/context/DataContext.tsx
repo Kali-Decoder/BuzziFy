@@ -138,6 +138,8 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
       if (mainContract) {
         const tx = await mainContract.placeBet(amount, predictScore, poolId);
         await tx.wait();
+
+        await getPoolsDetails();
       }
 
       toast.success("Bet placed successfully", {
@@ -160,6 +162,7 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
       if (mainContract) {
         const tx = await mainContract.claimBet(poolId);
         await tx.wait();
+        await getPoolsDetails();
         toast.success("Bet claimed successfully",{id});
       }
       return;

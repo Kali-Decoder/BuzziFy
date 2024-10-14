@@ -57,7 +57,6 @@ const ActivityTab = () => {
               <th></th>
             </tr>
           </thead>
-
           <tbody>
             {poolBets?.map((bet, index) => {
               return (
