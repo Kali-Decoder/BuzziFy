@@ -1,7 +1,5 @@
-<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=1000&size=55&pause=1000&center=true&vCenter=true&width=1000&lines=Buzzi+-+Fy;  Now+Watch+And+Earn+Rewards" alt="Typing SVG" /></a>
- <br/> <br/> <br/> <br/> <br/> 
-![Buzzify](https://github.com/user-attachments/assets/5fb554af-3af3-4ac5-ab70-df619db2da71)
-<br/> <br/> <br/> <br/> <br/> 
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=1000&size=55&pause=1000&center=true&vCenter=true&width=1000&lines=BuzziFy;  Now+Watch+And+Earn+Rewards" alt="Typing SVG" /></a>
+<br/> <br/> 
 ![c79a33af-ccb8-4f41-a434-83ac9298e3f6](https://github.com/user-attachments/assets/51d01ffc-9824-41a0-834c-822dc244b5c7)
 
  <br/> <br/>
