@@ -37,12 +37,12 @@
     - Users spend significant time and effort creating and engaging with content but often feel that their contributions are undervalued.
 
 
-## Bounty Tracks Applied for and Deployed Contracts Link:
-## Track 3: Build Us Something Cool!  &&  Smart Contract Deployer 
-- **1. KIIChain Testnet:** <br/>
-  - Reels-Fi Tokens(Contract Address ): 0x6d4e4b9ceb5a92f5212c017187528bcd0c516965) : https://app.kiichain.io/kiichain/tx/0x4a699a7cb88ca89aa3d88cd0e6c985163e39119be6412ecef6f735e1347a8cf2
-  - Reels Fi (Contract Address ): 0xbcab4ba549886e6bef67d9f3d381a2710316f8ca): https://app.kiichain.io/kiichain/tx/0x6f4a8e18f66539b33952350d44dd564b96900cc306772069bfff5d816a8b0a0b
-
+## Bounty Tracks: Based India: Deployed Contracts Link:
+- **1. Base Sepolia Testnet:** <br/>
+  - BuzziFy Buzz Token(Contract Address ): 0x7AD1a4b60c8C265a951459B4888354D1339c3cDa) :
+    https://sepolia.basescan.org/address/0x7AD1a4b60c8C265a951459B4888354D1339c3cDa
+  - BuzziFy (Contract Address ): 0x72105396D6b1c1378581D5Be21683A6470c1F2aE):
+    https://sepolia.basescan.org/address/0x72105396D6b1c1378581D5Be21683A6470c1F2aE
 
 ## Contract Overview : 
 
