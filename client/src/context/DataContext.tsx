@@ -21,7 +21,7 @@ interface DataContextProps {
   createPool: () => Promise<void>;
   placeBet: (
     poolId: number,
-    amount: number,
+    amount: BigNumber,
     targetScore: number
   ) => Promise<void>;
   claimBet: (poolId: number) => Promise<void>;
@@ -112,7 +112,7 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
 
   const placeBet = async (
     poolId: number,
-    amount: number,
+    amount: BigNumber,
     predictScore: number
   ) => {
     let id = await toast.loading("Placing bet...");
@@ -121,7 +121,7 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
         mainContractAddress,
         mainContractABI
       );
-      amount = ethers.utils.parseEther(amount.toString());
+      amount = (ethers.utils.parseEther(amount.toString()));
       const tokenContract = await getContractInstance(tokenAddress, tokenAbi);
       console.log("tokenContract", tokenContract);
       if (tokenContract) {
@@ -203,7 +203,7 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
           mainContractAddress,
           mainContractABI
         );
-       let maxPoolId = +(await mainContract.getPoolId()).toString();
+       let maxPoolId = +(await mainContract?.getPoolId()).toString();
        
         if (mainContract) {
           for (let i = 0; i < maxPoolId; i++) {

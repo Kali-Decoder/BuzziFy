@@ -50,11 +50,12 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
         <p className="mt-2 text-gray-600">{bio}</p>
 
         <div className="mt-4 flex justify-center md:justify-start space-x-8">
+          {/* Format followers with specific locale */}
           <p className="text-lg font-semibold">
-            {followers.toLocaleString()} <span className="text-gray-500">Followers</span>
+            {followers.toLocaleString("en-IN")} <span className="text-gray-500">Followers</span>
           </p>
           <p className="text-lg font-semibold">
-            {following.toLocaleString()} <span className="text-gray-500">Following</span>
+            {following.toLocaleString("en-IN")} <span className="text-gray-500">Following</span>
           </p>
         </div>
       </div>

@@ -9,21 +9,18 @@ const ExplorePage: React.FC = () => {
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
-
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
 
-  
   const handleFilterChange = (selectedOptions: string[]) => {
     setSelectedFilters(selectedOptions);
   };
 
-
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
-    }, 300); 
+    }, 300);
 
     return () => {
       clearTimeout(handler);
@@ -38,8 +35,6 @@ const ExplorePage: React.FC = () => {
     <section className="relative py-24 md:py-28 lg:py-40">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center mb-16">
-          
-          {/* Search Bar */}
           <div className="relative w-1/2 max-w-md">
             <input
               type="text"
@@ -50,7 +45,6 @@ const ExplorePage: React.FC = () => {
             />
           </div>
 
-          {/* Multi-select Filter Dropdown */}
           <div className="relative">
             <MultiSelectDropdown
               options={["Followers > 1k", "Popular", "Recently Added"]}
@@ -61,7 +55,6 @@ const ExplorePage: React.FC = () => {
           </div>
         </div>
 
-        {/* Grid for Explore Items */}
         <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
           {filteredItems.map((item) => (
             <ExploreItem key={item.id} item={item} />

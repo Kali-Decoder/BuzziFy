@@ -38,8 +38,8 @@ const EngagementGraph: React.FC<EngagementGraphProps> = ({
       {
         label: "Organic Engagement",
         data: organicData.map((d) => d.value),
-        borderColor: "rgba(75, 192, 192, 1)",
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "#4BC0C0", // Hex code for Organic Engagement line
+        backgroundColor: "rgba(75, 192, 192, 0.2)", // Background color with alpha
         borderWidth: 2,
         pointRadius: 4,
         tension: 0.4,
@@ -48,8 +48,8 @@ const EngagementGraph: React.FC<EngagementGraphProps> = ({
       {
         label: "Paid Engagement",
         data: paidData.map((d) => d.value),
-        borderColor: "rgba(255, 99, 132, 1)",
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        borderColor: "#FF6384", // Hex code for Paid Engagement line
+        backgroundColor: "rgba(255, 99, 132, 0.2)", // Background color with alpha
         borderWidth: 2,
         pointRadius: 4,
         tension: 0.4,
@@ -60,24 +60,25 @@ const EngagementGraph: React.FC<EngagementGraphProps> = ({
 
   const options = {
     responsive: true,
-    scaleFontColor: "#FFFFFF",
     maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top" as const,
+        color: "#FFFFFF",
         labels: {
           font: {
             size: 14,
-            color: "white", 
+           
           },
         },
       },
       title: {
         display: true,
         text: "Engagement Metrics",
+        color: "#FFFFFF", 
         font: {
           size: 18,
-          color: "white", 
+         
         },
         padding: {
           top: 10,
@@ -85,10 +86,11 @@ const EngagementGraph: React.FC<EngagementGraphProps> = ({
         },
       },
       tooltip: {
-        backgroundColor: "#333", 
-        titleFont: { size: 14, weight: "bold", color: "white" }, 
-        bodyFont: { size: 12, color: "white" },
-        borderColor: "#555", 
+        titleColor: "#ffffff",
+        backgroundColor: "#333333", 
+        titleFont: { size: 14, weight: "bold"},
+        bodyFont: { size: 12, color: "#FFFFFF" }, 
+        borderColor: "#555555", 
         borderWidth: 1,
       },
     },
@@ -98,43 +100,49 @@ const EngagementGraph: React.FC<EngagementGraphProps> = ({
         title: {
           display: true,
           text: "Date",
+          color: "#ffffff",
           font: {
             size: 14,
-            color: "white", 
+            weight: "500",
           },
         },
         ticks: {
+          color: "#ffffff",
           font: {
             size: 12,
-            color: "white", 
           },
         },
-      
+        grid: {
+          color: "rgba(255, 255, 255, 0.1)", // Light grid lines
+        },
       },
       y: {
         title: {
           display: true,
           text: "Engagement",
+          color: "#ffffff", // Y-axis title color
           font: {
             size: 14,
-            color: "white",
+            weight: "500",
           },
         },
         ticks: {
+          color: "#ffffff",
           font: {
             size: 12,
-            color: "white", 
           },
         },
-      
+        grid: {
+          color: "rgba(255, 255, 255, 0.1)", // Light grid lines
+        },
+        beginAtZero: true,
       },
     },
   };
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <div className="bg-gray-900 shadow-lg rounded-lg p-6 text-white">
-        {/* <h2 className="text-2xl font-semibold text-center text-white mb-4">Engagement Graph</h2> */}
+      <div className="bg-gray-800 shadow-lg rounded-lg p-6 text-white">
         <div className="h-96 w-full">
           <Line data={data} options={options} />
         </div>

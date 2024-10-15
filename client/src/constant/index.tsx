@@ -1436,6 +1436,7 @@ export const exploreItems = [
     imageUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTylcWMdKvrdW88y8JhlrkqTxwIFnVBIzYE6Svp6I2pSo6d1J6k",
     description: "American Pop Singer",
     followers: 100000000,
+    platform:"instagram"
   },
   {
     id: 2,
@@ -1443,6 +1444,7 @@ export const exploreItems = [
     imageUrl: "https://res.cloudinary.com/djp21wtxm/image/upload/w_336/v1642876781/i336x336-uYmY_vQW5pBA_wwbufe.png",
     description: "currently work on Base, which I created and lead day-to-day",
     followers:  20000,
+    platform:"farcaster"
     
   },
   {
@@ -1451,6 +1453,7 @@ export const exploreItems = [
     imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOVTe6stYkk7vsctjmxkOcvAfFt4YRn9iM9Q&s",
     description: "Indian Youtuber",
     followers: 25000000,
+    platform:"instagram",
   },
   {
     id: 4,
@@ -1458,6 +1461,7 @@ export const exploreItems = [
     imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRW47le8ZbNblIZFpeWYAfl8ZNY43nObhlA&s",
     description: "Farcaster Creator",
     followers: 270156,
+    platform:"farcaster"
   },
   {
     id: 5,
@@ -1465,6 +1469,7 @@ export const exploreItems = [
     imageUrl: "https://i.guim.co.uk/img/media/9d9759a25269ff4dd7f4c41bde320c4928bdfb65/0_24_3000_1800/master/3000.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=e4916223d76a56180788e7bfc1d25b02",
     description: "Popular Youtuber",
     followers: 110000000,
+    platform:"youtube"
     
   },
   {
@@ -1473,6 +1478,7 @@ export const exploreItems = [
     imageUrl: "https://pbs.twimg.com/profile_images/972210365198143493/R3bpWPqJ_400x400.jpg",
     description: "CTO @ http://scorechain.com",
     followers: 26512,
+    platform:"farcaster"
   },
 ];
 
