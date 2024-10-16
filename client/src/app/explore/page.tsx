@@ -32,9 +32,16 @@ const ExplorePage: React.FC = () => {
   );
 
   return (
-    <section className="relative py-24 md:py-28 lg:py-40">
+    <section className="relative py-24 md:py-28 lg:py-30">
+      <div className="container mx-auto px-4 mb-10">
+        <img
+          src="/images/Banner-Buzzify.png"
+          alt="Explore Banner"
+          className="w-full rounded-lg"
+        />
+      </div>
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center mb-16">
+        <div className="flex justify-between items-center mb-10">
           <div className="relative w-1/2 max-w-md">
             <input
               type="text"
