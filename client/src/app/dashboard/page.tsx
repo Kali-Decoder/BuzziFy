@@ -4,9 +4,8 @@ import { useDataContext } from "@/context/DataContext";
 import { useAccount } from "wagmi";
 const DashboardPage = () => {
   const { address } = useAccount();
-  const handleClick = async () => {
-    if (!address) return;
-  };
+  const {tokenBalance} = useDataContext();
+
   return (
     <>
       <div className="container mx-auto bg-transparent dark:bg-transparent text-white h-screen flex overflow-hidden text-sm relative pt-24 md:pt-28 lg:pt-30">
@@ -21,7 +20,11 @@ const DashboardPage = () => {
                     className="w-24 mr-4 rounded-full border-4"
                     alt="profile"
                   />
-                  Nikku Dev
+                  <div className="flex flex-col">
+                    <h1>Nikku Dev</h1>
+                    <p className="text-sm text-blue-200">@nikku_dev</p>
+                    <p className="text-sm text-gray-500">{address}</p>
+                  </div>
                 </div>
                 
                 <div className="ml-auto sm:flex hidden items-center justify-end">
@@ -29,7 +32,7 @@ const DashboardPage = () => {
                     <div className="text-md text-gray-400">
                       Account balance:
                     </div>
-                    <div className="text-3xl text-white">2,794.00 BUZZ</div>
+                    <div className="text-3xl text-white">{tokenBalance?tokenBalance:0} BUZZ</div>
                   </div>
                   <button className="w-8 h-8 ml-4 text-gray-400 shadow dark:text-gray-400 rounded-full flex items-center justify-center border border-gray-200 dark:border-gray-700">
                     <svg
@@ -59,26 +62,9 @@ const DashboardPage = () => {
                   href="#"
                   className="px-3 border-b-2 border-transparent text-white pb-1.5"
                 >
-                  Transfer
+                  Analytics
                 </a>
-                <a
-                  href="#"
-                  className="px-3 border-b-2 border-transparent text-white pb-1.5 sm:block hidden"
-                >
-                  Budgets
-                </a>
-                <a
-                  href="#"
-                  className="px-3 border-b-2 border-transparent text-white pb-1.5 sm:block hidden"
-                >
-                  Notifications
-                </a>
-                <a
-                  href="#"
-                  className="px-3 border-b-2 border-transparent text-white pb-1.5 sm:block hidden"
-                >
-                  Cards
-                </a>
+              
               </div>
             </div>
             <div className="sm:p-7 p-4">

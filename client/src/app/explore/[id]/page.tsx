@@ -9,6 +9,7 @@ import LikeGraph from "@/components/explore/LikeGraph";
 import FollowerGraph from "@/components/explore/FollowersGraph";
 import Dropdown from "@/components/Resusables/Dropdown";
 import ActivityTab from "@/components/explore/ActivityTab";
+import Countdown from "react-countdown";
 const mockProfileData = {
   id: 1,
   name: "0xcBe600349CE4cF89842Bc371E4a4062140CDCCcD",
@@ -41,26 +42,26 @@ const mockProfileData = {
       comments: 50,
     },
     {
-        id: 4,
-        imageUrl:
-          "https://www.rollingstone.com/wp-content/uploads/2024/03/GettyImages-2074745918-1.jpg?w=1581&h=1054&crop=1",
-        likes: 230,
-        comments: 12,
-      },
-      {
-        id: 5,
-        imageUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_9RV36uovdWkNPRrXnKDtrv16xN2p0FAfBw&s",
-        likes: 120,
-        comments: 8,
-      },
-      {
-        id: 6,
-        imageUrl:
-          "https://media.allure.com/photos/64dfa6396466b2d228974cac/4:3/w_2664,h_1998,c_limit/ariana%20grande%20rem%20foundation%20launch.jpg",
-        likes: 390,
-        comments: 50,
-      },
+      id: 4,
+      imageUrl:
+        "https://www.rollingstone.com/wp-content/uploads/2024/03/GettyImages-2074745918-1.jpg?w=1581&h=1054&crop=1",
+      likes: 230,
+      comments: 12,
+    },
+    {
+      id: 5,
+      imageUrl:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_9RV36uovdWkNPRrXnKDtrv16xN2p0FAfBw&s",
+      likes: 120,
+      comments: 8,
+    },
+    {
+      id: 6,
+      imageUrl:
+        "https://media.allure.com/photos/64dfa6396466b2d228974cac/4:3/w_2664,h_1998,c_limit/ariana%20grande%20rem%20foundation%20launch.jpg",
+      likes: 390,
+      comments: 50,
+    },
   ],
 };
 
@@ -75,7 +76,6 @@ const ProfilePage: React.FC = () => {
       setProfileData(mockProfileData);
     }
   }, [id]);
-
 
   const graphOptions = [
     { name: "Engagement Graph", id: "engagement" },
@@ -104,11 +104,19 @@ const ProfilePage: React.FC = () => {
       />
 
       {/* Profile Tabs */}
-      <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+      <div className="flex items-center justify-between">
+        <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+        <Countdown
+          className="text-3xl text-green-400 mb-4"
+          date={Date.now() + 1000000}
+          intervalDelay={0}
+          precision={3}
+        />
+      </div>
 
       {/* Tab Content */}
       {activeTab === "posts" && <PostsGrid posts={profileData.posts} />}
-      {activeTab==="activity" && <ActivityTab/>}
+      {activeTab === "activity" && <ActivityTab />}
       {activeTab === "highlights" && (
         <div className="flex justify-between items-center w-full mb-4">
           <div>Highlights Content</div>
@@ -118,7 +126,9 @@ const ProfilePage: React.FC = () => {
             items={graphOptions}
             label="Select Graph"
             onSelect={handleGraphSelect}
-            selectedItem={graphOptions.find(item => item.id === selectedGraph) || null}
+            selectedItem={
+              graphOptions.find((item) => item.id === selectedGraph) || null
+            }
           />
         </div>
       )}

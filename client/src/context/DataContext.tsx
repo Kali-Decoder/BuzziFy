@@ -257,7 +257,7 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
         claimBet,
         getPoolsDetails,
         totalPools,
-        poolBets,
+        poolBets
       }}
     >
       {children}

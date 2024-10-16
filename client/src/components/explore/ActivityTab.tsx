@@ -56,8 +56,6 @@ const ActivityTab: React.FC = () => {
   };
 
   const histogramData = createHistogramData(poolBets || []);
-
-
   const data = {
     labels: histogramData.map((range) => range.range), 
     datasets: [
@@ -92,7 +90,7 @@ const ActivityTab: React.FC = () => {
       tooltip: {
         backgroundColor: "rgba(0, 0, 0, 0.7)", 
         titleColor: "#ffffff",
-        bodyColor: "#ffffff",
+        bodyColor: "#080C27",
       },
     },
     scales: {
@@ -105,9 +103,7 @@ const ActivityTab: React.FC = () => {
         ticks: {
           color: "#ffffff", 
         },
-        grid: {
-          color: "rgba(255, 255, 255, 0.2)",
-        },
+        
       },
       y: {
         title: {
@@ -118,9 +114,7 @@ const ActivityTab: React.FC = () => {
         ticks: {
           color: "#ffffff",  
         },
-        grid: {
-          color: "rgba(255, 255, 255, 0.2)",
-        },
+        
         beginAtZero: true,
       },
     },
@@ -206,7 +200,7 @@ const ActivityTab: React.FC = () => {
       </div>
 
       {/* Activity Bar Chart as Histogram */}
-      <div className="mt-10 p-6 w-3/4 h-80 bg-gray-800 rounded-lg">
+      <div className="mt-10 p-6 w-3/4 h-80 bg-[#080C27] rounded-lg">
         <h2 className="text-lg font-bold text-center text-white">Total Amount Distribution Histogram</h2>
         <div>
           <Bar data={data} options={options} height={250} />

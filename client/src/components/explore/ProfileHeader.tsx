@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import BetNowModal from "./BetnowModal";
-
+import Countdown from 'react-countdown';
 interface ProfileHeaderProps {
   name: string;
   username: string;
@@ -22,7 +22,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="flex flex-col md:flex-row items-center space-x-0 md:space-x-6 mb-8 p-4 md:p-8 rounded-lg shadow-lg">
+    <div className="flex flex-col md:flex-row items-center space-x-0 md:space-x-6 mb-8 p-4 md:p-8 rounded-lg ">
       {/* Profile Image */}
       <div className="w-24 h-24 md:w-32 md:h-32 flex-shrink-0 rounded-full border-2 border-s2 p-1.5 overflow-hidden">
         <img
@@ -59,6 +59,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
           </p>
         </div>
       </div>
+
 
       {/* Bet Now Modal */}
       <BetNowModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
