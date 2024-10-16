@@ -10,10 +10,10 @@ const ProfileTabs: React.FC<ProfileTabsProps> = ({ activeTab, setActiveTab }) =>
     <div className="border-b border-s2 mb-6">
       <ul className="flex space-x-6 text-lg">
         <li
-          className={`cursor-pointer py-3 ${activeTab === "posts" ? "border-b-2 border-blue-500 font-semibold text-p4" : ""}`}
-          onClick={() => setActiveTab("posts")}
+          className={`cursor-pointer py-3 ${activeTab === "pools" ? "border-b-2 border-blue-500 font-semibold text-p4" : ""}`}
+          onClick={() => setActiveTab("pools")}
         >
-          Posts
+          Pools
         </li>
         <li
           className={`cursor-pointer py-3 ${activeTab === "highlights" ? "border-b-2 font-semibold border-blue-500 text-p4" : ""}`}

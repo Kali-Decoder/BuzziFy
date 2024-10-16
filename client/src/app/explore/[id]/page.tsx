@@ -115,7 +115,7 @@ const ProfilePage: React.FC = () => {
       </div>
 
       {/* Tab Content */}
-      {activeTab === "posts" && <PostsGrid posts={profileData.posts} />}
+      {activeTab === "pools" && <PostsGrid posts={profileData.posts} />}
       {activeTab === "activity" && <ActivityTab />}
       {activeTab === "highlights" && (
         <div className="flex justify-between items-center w-full mb-4">
