@@ -52,9 +52,15 @@ const ExplorePage: React.FC = () => {
             />
           </div>
 
-          <div className="relative">
+          <div className="relative flex flex-row gap-3">
             <MultiSelectDropdown
               options={["Followers > 1k", "Popular", "Recently Added"]}
+              selected={selectedFilters}
+              onChange={handleFilterChange}
+              className="text-white bg-s1 border-s5"
+            />
+            <MultiSelectDropdown
+              options={["Instagram", "Twitter", "Youtube", "Twitch", "Facebook","Farcaster"]}
               selected={selectedFilters}
               onChange={handleFilterChange}
               className="text-white bg-s1 border-s5"

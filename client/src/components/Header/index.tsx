@@ -95,9 +95,7 @@ const Header = () => {
                   <li className="nav-li">
                     <NavLinkPage title="Explore" href="/explore" />
                   </li>
-                  <li className="nav-li">
-                    <NavLinkPage title="Profile" href="/profile" />
-                  </li>
+            
                   <li className="nav-li">
                     <NavLinkPage title="One-X-One" href="/1v1" />
                   </li>
@@ -158,9 +156,7 @@ const Header = () => {
                   <li className="nav-li">
                     <NavLinkPage title="Explore" href="/explore" />
                   </li>
-                  <li className="nav-li">
-                    <NavLinkPage title="Profile" href="/profile" />
-                  </li>
+            
                   <li className="nav-li">
                     <NavLinkPage title="Activity" href="/profile" />
                   </li>
