@@ -1,7 +1,4 @@
-"use client";
-import React, { useState } from "react";
-import BetNowModal from "./BetnowModal";
-import Countdown from 'react-countdown';
+import React from "react";
 interface ProfileHeaderProps {
   name: string;
   username: string;
@@ -19,8 +16,6 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   followers,
   following,
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
     <div className="flex flex-col md:flex-row items-center space-x-0 md:space-x-6 mb-8 p-4 md:p-8 rounded-lg ">
       {/* Profile Image */}
@@ -37,13 +32,9 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
         <div className="flex items-center justify-center md:justify-between">
           <h2 className="text-xl md:text-2xl font-bold text-p1">@{username}</h2>
 
-          {/* Bet Now Button */}
-          <button
-            className="mt-4 md:mt-0 bg-gradient-to-r from-s4 via-blue-500 to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-lg transition hover:from-s4 hover:via-blue-600 hover:to-purple-700"
-            onClick={() => setIsModalOpen(true)}
-          >
-            Bet Now
-          </button>
+          <div className="mt-4 md:mt-0 bg-gradient-to-r from-s4 via-blue-500 to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-lg transition hover:from-s4 hover:via-blue-600 hover:to-purple-700">
+            Last pool score: 84
+          </div>
         </div>
 
         <p className="mt-1 text-s3 small-compact uppercase">{name}</p>
@@ -52,17 +43,15 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
         <div className="mt-4 flex justify-center md:justify-start space-x-8">
           {/* Format followers with specific locale */}
           <p className="text-lg font-semibold">
-            {followers.toLocaleString("en-IN")} <span className="text-gray-500">Followers</span>
+            {followers.toLocaleString("en-IN")}{" "}
+            <span className="text-gray-500">Followers</span>
           </p>
           <p className="text-lg font-semibold">
-            {following.toLocaleString("en-IN")} <span className="text-gray-500">Following</span>
+            {following.toLocaleString("en-IN")}{" "}
+            <span className="text-gray-500">Following</span>
           </p>
         </div>
       </div>
-
-
-      {/* Bet Now Modal */}
-      <BetNowModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 };
