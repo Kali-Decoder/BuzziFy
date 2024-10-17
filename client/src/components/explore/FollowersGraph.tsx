@@ -99,9 +99,7 @@ const FollowerGraph: React.FC<FollowerGraphProps> = ({ comparisonData }) => {
             
           },
         },
-        grid: {
-          color: "rgba(255, 255, 255, 0.1)",
-        },
+       
       },
       y: {
         title: {
@@ -120,9 +118,7 @@ const FollowerGraph: React.FC<FollowerGraphProps> = ({ comparisonData }) => {
            
           },
         },
-        grid: {
-          color: "rgba(255, 255, 255, 0.1)",
-        },
+       
         beginAtZero: true,
       },
     },
@@ -130,7 +126,7 @@ const FollowerGraph: React.FC<FollowerGraphProps> = ({ comparisonData }) => {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <div className="bg-gray-800 shadow-lg rounded-lg p-6">
+      <div className="bg-transparent shadow-lg rounded-lg p-6">
         <div className="h-96 w-full">
           <Line data={chartData} options={options} />
         </div>

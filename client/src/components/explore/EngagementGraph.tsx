@@ -142,7 +142,7 @@ const EngagementGraph: React.FC<EngagementGraphProps> = ({
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <div className="bg-gray-800 shadow-lg rounded-lg p-6 text-white">
+      <div className="bg-transparent shadow-lg rounded-lg p-6 text-white">
         <div className="h-96 w-full">
           <Line data={data} options={options} />
         </div>

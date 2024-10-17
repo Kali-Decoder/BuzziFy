@@ -73,10 +73,7 @@ const LikeGraph: React.FC<LikeGraphProps> = ({ data }) => {
         },
         ticks: {
           color: "#ffffff", // X-axis label color
-        },
-        grid: {
-          color: "rgba(255, 255, 255, 0.2)", // Light grid lines
-        },
+        }
       },
       y: {
         title: {
@@ -91,9 +88,7 @@ const LikeGraph: React.FC<LikeGraphProps> = ({ data }) => {
         ticks: {
           color: "#ffffff", // Y-axis label color
         },
-        grid: {
-          color: "rgba(255, 255, 255, 0.2)", // Light grid lines
-        },
+       
         beginAtZero: true, // Ensures chart starts at 0
       },
     },
@@ -108,7 +103,7 @@ const LikeGraph: React.FC<LikeGraphProps> = ({ data }) => {
   };
 
   return (
-    <div className="w-full h-96 p-6 md:w-3/4 lg:w-2/3 mx-auto bg-gray-800 rounded-lg shadow-lg">
+    <div className="w-full h-96 p-6 md:w-3/4 lg:w-2/3 mx-auto bg-transparent rounded-lg shadow-lg">
       <div className="h-full">
         <Bar data={chartData} options={options} />
       </div>

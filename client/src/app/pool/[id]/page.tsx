@@ -147,27 +147,56 @@ const PoolDetailPage: React.FC = () => {
         {/* Pool Details Section */}
         {activeTab === "overview" && (
           <div className="p-6 border border-gray-700 rounded-lg shadow-md md:w-1/2 bg-gray-900">
-            <h2 className="text-3xl font-bold mb-2">Pool Details</h2>
-            <ul className="list-disc list-inside space-y-4 text-lg">
-              <li className="flex items-center">
-                <FaEtsy className="text-yellow-400 mr-2" />
-                <strong>Total Bets:</strong> {poolData?.totalBets}
-              </li>
-              <li className="flex items-center">
-                <FaChartLine className="text-green-400 mr-2" />
-                <strong>Total Amount Bet:</strong> ${" "}
-                {poolData?.totalAmountBet.toLocaleString()}
-              </li>
-              <li className="flex items-center">
-                <FaUserFriends className="text-purple-400 mr-2" />
-                <strong>Unique Users:</strong> {poolData?.uniqueUsers}
-              </li>
-              <li className="flex items-center">
-                <FaTrophy className="text-blue-400 mr-2" />
-                <strong>Average Bet Size:</strong> ${" "}
-                {poolData?.averageBetSize.toFixed(2)}
-              </li>
-            </ul>
+            <h2 className="text-3xl mb-2">Pool Details</h2>
+            <div className="grid grid-cols-2 space-y-4">
+              <div className="flex items-center">
+                <div>
+                  <p className="text-5xl text-blue-500 font-semibold">
+                    {poolData?.totalBets}
+                  </p>
+                  <div className="flex items-center">
+                    <FaEtsy className="text-yellow-400 mr-2" />
+                    <p>Total Bets</p>{" "}
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div>
+                  <p className="text-5xl text-blue-500 font-semibold">
+                    {poolData?.totalAmountBet.toLocaleString()}
+                  </p>
+                  <div className="flex items-center">
+                    {" "}
+                    <FaChartLine className="text-green-400 mr-2" />
+                    <p>Total Amount Bet</p>{" "}
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div>
+                  <p className="text-5xl text-blue-500 font-semibold">
+                    {poolData?.uniqueUsers}
+                  </p>
+                  <div className="flex items-center">
+                    {" "}
+                    <FaUserFriends className="text-purple-400 mr-2" />
+                    <p>Unique Users</p>{" "}
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div>
+                  <p className="text-5xl text-blue-500 font-semibold">
+                    {poolData?.averageBetSize.toFixed(2)}
+                  </p>
+                  <div className="flex items-center">
+                    {" "}
+                    <FaTrophy className="text-blue-400 mr-2" />
+                    <p>Average Bet Size</p>{" "}
+                  </div>
+                </div>
+              </div>
+            </div>
 
             {/* User Bets Section */}
             <div className="mt-8 bg-gray-800 p-4 rounded-lg">

@@ -2,9 +2,9 @@ import React from "react";
 
 const PerformanceTable = ({ profileData }: { profileData: any }) => {
   return (
-    <div className="bg-[#05091d] text-light-1 p-4 rounded-lg shadow-md">
+    <div className="bg-transparent text-light-1 p-4 rounded-lg shadow-md">
       <h2 className="text-2xl mb-4 text-primary-600">Performance History</h2>
-      <table className="min-w-full border-collapse border border-gray-700">
+      <table className="min-w-full border-collapse rounded-md border border-gray-700">
         <thead>
           <tr className="bg-dark-1 text-light-1">
             <th className="border border-gray-600 p-2">Pool ID</th>
