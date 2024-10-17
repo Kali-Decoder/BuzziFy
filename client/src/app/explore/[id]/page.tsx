@@ -22,7 +22,7 @@ const mockProfileData = {
   following: 200,
    posts : [
     {
-      id: 1,
+      id: 0,
       imageUrl:
         "https://www.rollingstone.com/wp-content/uploads/2024/03/GettyImages-2074745918-1.jpg?w=1581&h=1054&crop=1",
       active: true,    
@@ -32,7 +32,7 @@ const mockProfileData = {
       totalAmount: 5000,           
     },
     {
-      id: 2,
+      id: 1,
       imageUrl:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_9RV36uovdWkNPRrXnKDtrv16xN2p0FAfBw&s",
       active: false,   
@@ -45,7 +45,7 @@ const mockProfileData = {
       winners: ["Alice", "Bob"],   
     },
     {
-      id: 3,
+      id: 2,
       imageUrl:
         "https://media.allure.com/photos/64dfa6396466b2d228974cac/4:3/w_2664,h_1998,c_limit/ariana%20grande%20rem%20foundation%20launch.jpg",
       active: true,    
@@ -55,7 +55,7 @@ const mockProfileData = {
       totalAmount: 7000,           
     },
     {
-      id: 4,
+      id: 3,
       imageUrl:
         "https://www.rollingstone.com/wp-content/uploads/2024/03/GettyImages-2074745918-1.jpg?w=1581&h=1054&crop=1",
       active: false,   
@@ -68,7 +68,7 @@ const mockProfileData = {
       winners: ["Charlie", "Eve"], 
     },
     {
-      id: 5,
+      id: 4,
       imageUrl:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_9RV36uovdWkNPRrXnKDtrv16xN2p0FAfBw&s",
       active: true,    
@@ -78,7 +78,7 @@ const mockProfileData = {
       totalAmount: 6000,           
     },
     {
-      id: 6,
+      id: 5,
       imageUrl:
         "https://media.allure.com/photos/64dfa6396466b2d228974cac/4:3/w_2664,h_1998,c_limit/ariana%20grande%20rem%20foundation%20launch.jpg",
       active: false,   

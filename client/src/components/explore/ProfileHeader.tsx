@@ -17,7 +17,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   following,
 }) => {
   return (
-    <div className="flex flex-col md:flex-row items-center space-x-0 md:space-x-6 mb-8 p-4 md:p-8 rounded-lg ">
+    <div className="flex flex-col md:flex-row items-center space-x-0 md:space-x-6 mb-8 py-4 rounded-lg ">
       {/* Profile Image */}
       <div className="w-24 h-24 md:w-32 md:h-32 flex-shrink-0 rounded-full border-2 border-s2 p-1.5 overflow-hidden">
         <img

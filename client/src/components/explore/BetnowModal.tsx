@@ -4,11 +4,12 @@ import Slider from "react-input-slider"; // Ensure to install this package or us
 import { IoClose } from "react-icons/io5"; // Import close icon from react-icons
 import { useDataContext } from "@/context/DataContext";
 interface BetNowModalProps {
+  id : string,
   isOpen: boolean;
   onClose: () => void;
 }
 
-const BetNowModal: React.FC<BetNowModalProps> = ({ isOpen, onClose }) => {
+const BetNowModal: React.FC<BetNowModalProps> = ({ id ,isOpen, onClose }) => {
   const [scorePrediction, setScorePrediction] = useState(50); // Default value for the slider
   const [investment, setInvestment] = useState("");
   const [selectedToken, setSelectedToken] = useState("buzzToken");
@@ -31,7 +32,7 @@ const BetNowModal: React.FC<BetNowModalProps> = ({ isOpen, onClose }) => {
       selectedToken,
       tenurePeriod,
     });
-    await placeBet(0,+investment.toString(),scorePrediction);
+    await placeBet(+id,+investment.toString(),scorePrediction);
     onClose(); // Close the modal after submission
   };
 

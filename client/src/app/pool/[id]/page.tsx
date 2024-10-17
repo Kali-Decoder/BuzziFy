@@ -159,6 +159,7 @@ const PoolDetailPage: React.FC = () => {
         <div className="p-6 border border-gray-700 rounded-lg shadow-md md:w-1/2 bg-gray-900">
           {activeTab === "recentBets" && (
             <BetsGraph betsData={totalPools[id as number]?.bets}/>
+            
           )}
           {activeTab === "overview" && (
             <>
@@ -251,6 +252,16 @@ const PoolDetailPage: React.FC = () => {
                     <p>Pool Status</p>{" "}
                   </div>
                 </div>
+                <div className="flex flex-col">
+                  <p className="text-4xl text-red font-semibold">
+                    300
+                  </p>
+                  <div className="flex items-center">
+                    {" "}
+                    <FaTrophy className="text-blue-400 mr-2" />
+                    <p>Last Score Achieved</p>{" "}
+                  </div>
+                </div>
               </div>
 
               <Button
@@ -268,7 +279,7 @@ const PoolDetailPage: React.FC = () => {
       {/* Recent Bets Section */}
 
       {/* Bet Now Modal */}
-      <BetNowModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <BetNowModal id={id} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 };

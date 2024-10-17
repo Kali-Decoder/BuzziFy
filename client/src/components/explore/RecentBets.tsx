@@ -15,7 +15,7 @@ const RecentBets = ({ betsData }:{betsData:any}) => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-600">
-            {betsData.map((bet:any, index:number) => (
+            {betsData?.map((bet:any, index:number) => (
               <tr key={index} className="hover:bg-gray-800 transition-colors duration-300">
                 <td className="border border-gray-600 px-6 py-4 whitespace-nowrap text-sm text-gray-400">{index}</td>
                 <td className="border border-gray-600 px-6 py-4 whitespace-nowrap text-sm text-gray-400">{`${bet.amount}`} Buzz</td>
