@@ -86,7 +86,7 @@ const PoolDetailPage: React.FC = () => {
   return (
     <section className="text-white items-center flex flex-col justify-center container mx-auto px-4 py-12 mt-24 rounded-lg shadow-lg">
       {/* Tabs Section */}
-      <div className="flex space-x-4 mb-6">
+      <div className="flex flex-start w-full space-x-4 mb-2">
         <button
           onClick={() => setActiveTab("overview")}
           className={`${
@@ -148,52 +148,44 @@ const PoolDetailPage: React.FC = () => {
         {activeTab === "overview" && (
           <div className="p-6 border border-gray-700 rounded-lg shadow-md md:w-1/2 bg-gray-900">
             <h2 className="text-3xl mb-2">Pool Details</h2>
-            <div className="grid grid-cols-2 space-y-4">
-              <div className="flex items-center">
-                <div>
-                  <p className="text-5xl text-blue-500 font-semibold">
-                    {poolData?.totalBets}
-                  </p>
-                  <div className="flex items-center">
-                    <FaEtsy className="text-yellow-400 mr-2" />
-                    <p>Total Bets</p>{" "}
-                  </div>
+            <div className="grid grid-cols-2 space-y-8">
+              <div className="flex flex-col">
+                <p className="text-5xl text-blue-500 font-semibold">
+                  {poolData?.totalBets}
+                </p>
+                <div className="flex items-center">
+                  <FaEtsy className="text-yellow-400 mr-2" />
+                  <p>Total Bets</p>{" "}
                 </div>
               </div>
-              <div className="flex items-center">
-                <div>
-                  <p className="text-5xl text-blue-500 font-semibold">
-                    {poolData?.totalAmountBet.toLocaleString()}
-                  </p>
-                  <div className="flex items-center">
-                    {" "}
-                    <FaChartLine className="text-green-400 mr-2" />
-                    <p>Total Amount Bet</p>{" "}
-                  </div>
+              <div className="flex flex-col">
+                <p className="text-5xl text-blue-500 font-semibold">
+                  {poolData?.totalAmountBet.toLocaleString()}
+                </p>
+                <div className="flex items-center">
+                  {" "}
+                  <FaChartLine className="text-green-400 mr-2" />
+                  <p>Total Amount Bet</p>{" "}
                 </div>
               </div>
-              <div className="flex items-center">
-                <div>
-                  <p className="text-5xl text-blue-500 font-semibold">
-                    {poolData?.uniqueUsers}
-                  </p>
-                  <div className="flex items-center">
-                    {" "}
-                    <FaUserFriends className="text-purple-400 mr-2" />
-                    <p>Unique Users</p>{" "}
-                  </div>
+              <div className="flex flex-col">
+                <p className="text-5xl text-blue-500 font-semibold">
+                  {poolData?.uniqueUsers}
+                </p>
+                <div className="flex items-center">
+                  {" "}
+                  <FaUserFriends className="text-purple-400 mr-2" />
+                  <p>Unique Users</p>{" "}
                 </div>
               </div>
-              <div className="flex items-center">
-                <div>
-                  <p className="text-5xl text-blue-500 font-semibold">
-                    {poolData?.averageBetSize.toFixed(2)}
-                  </p>
-                  <div className="flex items-center">
-                    {" "}
-                    <FaTrophy className="text-blue-400 mr-2" />
-                    <p>Average Bet Size</p>{" "}
-                  </div>
+              <div className="flex flex-col">
+                <p className="text-5xl text-blue-500 font-semibold">
+                  {poolData?.averageBetSize.toFixed(2)}
+                </p>
+                <div className="flex items-center">
+                  {" "}
+                  <FaTrophy className="text-blue-400 mr-2" />
+                  <p>Average Bet Size</p>{" "}
                 </div>
               </div>
             </div>
