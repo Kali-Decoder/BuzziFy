@@ -1001,11 +1001,391 @@ export const mainContractABI = [
     "type": "function"
   }
 ];
+
+export const superfluidABI = [
+  {
+    inputs: [
+      {
+        internalType: "address[]",
+        name: "_members",
+        type: "address[]",
+      },
+    ],
+    name: "deleteMemberFromPool",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address[]",
+        name: "_members",
+        type: "address[]",
+      },
+      {
+        internalType: "uint128[]",
+        name: "_giveUnits",
+        type: "uint128[]",
+      },
+    ],
+    name: "giveUnits",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "instantlyDistribute",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_acceptedToken",
+        type: "address",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
+    inputs: [],
+    name: "acceptedToken",
+    outputs: [
+      {
+        internalType: "contract ISETH",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "FEE",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "owner",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "pool",
+    outputs: [
+      {
+        internalType: "contract ISuperfluidPool",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+];
+export const superfluidAddress = "0x5AB8bc4DF926903334789EF126563e07560ff779";
+export const superfluidPoolAddress = "0x85b817A9aDB057D99664bf93e936747B756488F2";
+export const superTokenAddress = "0x143ea239159155B408e71CDbE836e8CFD6766732";
+export const superfluidGDAForwarderAddress =
+  "0x6DA13Bde224A05a288748d857b9e7DDEffd1dE08";
+
+export const superfluidGDAForwarderAbi = [
+  {
+    inputs: [
+      { internalType: "contract ISuperfluid", name: "host", type: "address" },
+    ],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract ISuperfluidPool",
+        name: "pool",
+        type: "address",
+      },
+      { internalType: "address", name: "memberAddress", type: "address" },
+      { internalType: "bytes", name: "userData", type: "bytes" },
+    ],
+    name: "claimAll",
+    outputs: [{ internalType: "bool", name: "success", type: "bool" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract ISuperfluidPool",
+        name: "pool",
+        type: "address",
+      },
+      { internalType: "bytes", name: "userData", type: "bytes" },
+    ],
+    name: "connectPool",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract ISuperfluidToken",
+        name: "token",
+        type: "address",
+      },
+      { internalType: "address", name: "admin", type: "address" },
+      {
+        components: [
+          {
+            internalType: "bool",
+            name: "transferabilityForUnitsOwner",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "distributionFromAnyAddress",
+            type: "bool",
+          },
+        ],
+        internalType: "struct PoolConfig",
+        name: "config",
+        type: "tuple",
+      },
+    ],
+    name: "createPool",
+    outputs: [
+      { internalType: "bool", name: "success", type: "bool" },
+      {
+        internalType: "contract ISuperfluidPool",
+        name: "pool",
+        type: "address",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract ISuperfluidPool",
+        name: "pool",
+        type: "address",
+      },
+      { internalType: "bytes", name: "userData", type: "bytes" },
+    ],
+    name: "disconnectPool",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract ISuperfluidToken",
+        name: "token",
+        type: "address",
+      },
+      { internalType: "address", name: "from", type: "address" },
+      {
+        internalType: "contract ISuperfluidPool",
+        name: "pool",
+        type: "address",
+      },
+      { internalType: "uint256", name: "requestedAmount", type: "uint256" },
+      { internalType: "bytes", name: "userData", type: "bytes" },
+    ],
+    name: "distribute",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract ISuperfluidToken",
+        name: "token",
+        type: "address",
+      },
+      { internalType: "address", name: "from", type: "address" },
+      {
+        internalType: "contract ISuperfluidPool",
+        name: "pool",
+        type: "address",
+      },
+      { internalType: "int96", name: "requestedFlowRate", type: "int96" },
+      { internalType: "bytes", name: "userData", type: "bytes" },
+    ],
+    name: "distributeFlow",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract ISuperfluidToken",
+        name: "token",
+        type: "address",
+      },
+      { internalType: "address", name: "from", type: "address" },
+      { internalType: "contract ISuperfluidPool", name: "to", type: "address" },
+      { internalType: "uint256", name: "requestedAmount", type: "uint256" },
+    ],
+    name: "estimateDistributionActualAmount",
+    outputs: [
+      { internalType: "uint256", name: "actualAmount", type: "uint256" },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract ISuperfluidToken",
+        name: "token",
+        type: "address",
+      },
+      { internalType: "address", name: "from", type: "address" },
+      { internalType: "contract ISuperfluidPool", name: "to", type: "address" },
+      { internalType: "int96", name: "requestedFlowRate", type: "int96" },
+    ],
+    name: "estimateFlowDistributionActualFlowRate",
+    outputs: [
+      { internalType: "int96", name: "actualFlowRate", type: "int96" },
+      {
+        internalType: "int96",
+        name: "totalDistributionFlowRate",
+        type: "int96",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract ISuperfluidToken",
+        name: "token",
+        type: "address",
+      },
+      { internalType: "address", name: "from", type: "address" },
+      { internalType: "contract ISuperfluidPool", name: "to", type: "address" },
+    ],
+    name: "getFlowDistributionFlowRate",
+    outputs: [{ internalType: "int96", name: "", type: "int96" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract ISuperfluidToken",
+        name: "token",
+        type: "address",
+      },
+      { internalType: "address", name: "account", type: "address" },
+    ],
+    name: "getNetFlow",
+    outputs: [{ internalType: "int96", name: "", type: "int96" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract ISuperfluidPool",
+        name: "pool",
+        type: "address",
+      },
+    ],
+    name: "getPoolAdjustmentFlowInfo",
+    outputs: [
+      { internalType: "address", name: "", type: "address" },
+      { internalType: "bytes32", name: "", type: "bytes32" },
+      { internalType: "int96", name: "", type: "int96" },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "pool", type: "address" }],
+    name: "getPoolAdjustmentFlowRate",
+    outputs: [{ internalType: "int96", name: "", type: "int96" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract ISuperfluidPool",
+        name: "pool",
+        type: "address",
+      },
+      { internalType: "address", name: "member", type: "address" },
+    ],
+    name: "isMemberConnected",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract ISuperfluidToken",
+        name: "token",
+        type: "address",
+      },
+      { internalType: "address", name: "account", type: "address" },
+    ],
+    name: "isPool",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract ISuperfluidPool",
+        name: "pool",
+        type: "address",
+      },
+      { internalType: "address", name: "memberAddress", type: "address" },
+      { internalType: "uint128", name: "newUnits", type: "uint128" },
+      { internalType: "bytes", name: "userData", type: "bytes" },
+    ],
+    name: "updateMemberUnits",
+    outputs: [{ internalType: "bool", name: "success", type: "bool" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+];
 export const features = [
   {
     id: "0",
     icon: "/images/feature-1.png",
-    url:"https://www.notion.so/Introduction-40fcce3d85434b7aafaac9567688bbbe?pvs=4",
+    url: "https://www.notion.so/Introduction-40fcce3d85434b7aafaac9567688bbbe?pvs=4",
     caption: "Betting on your favorite creators",
     title: "Bet on your favorite creators",
     text: "Bet on your favorite creators, predict the score that you think they will get after certain time-period, with our open sourced unique score calculation mechanism 😉 win rewards if you are correct with your number.",
@@ -1017,7 +1397,7 @@ export const features = [
   {
     id: "1",
     icon: "/images/feature-2.png",
-    url:"https://www.notion.so/Introduction-40fcce3d85434b7aafaac9567688bbbe?pvs=4",
+    url: "https://www.notion.so/Introduction-40fcce3d85434b7aafaac9567688bbbe?pvs=4",
     caption: "Wanna take your fanclub fights to next level?",
     title: "Battle with your friends",
     text: "Bet who will win the battle between your favorite creators and win rewards if you are correct. You can also create your own pools and invite your friends to join. It's that easy to predict who will win US elections.",
@@ -1099,7 +1479,18 @@ export const faq = [
     question: "How is the score verified and calculated on BuzziFy?",
     answer: (
       <>
-        BuzziFy fetches real-time public data using APIs from platforms like YouTube, Twitter, Instagram, and Farcaster. Please check detailed formula <a href="https://quickest-reaction-568.notion.site/Score-Mechanism-Randomness-Calculator-111a260a8fdc810ba9dcf4e86385e1e6" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>here</a>.
+        BuzziFy fetches real-time public data using APIs from platforms like
+        YouTube, Twitter, Instagram, and Farcaster. Please check detailed
+        formula{" "}
+        <a
+          href="https://quickest-reaction-568.notion.site/Score-Mechanism-Randomness-Calculator-111a260a8fdc810ba9dcf4e86385e1e6"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: "underline" }}
+        >
+          here
+        </a>
+        .
       </>
     ),
   },
@@ -1224,7 +1615,7 @@ export const logos = [
     width: 156,
     height: 50,
   },
-  { 
+  {
     id: "1",
     title: "Farcaster",
     url: "images/logos/transparent-white.svg",
@@ -1244,7 +1635,6 @@ export const logos = [
     url: "/images/socials/threads.svg",
     width: 40,
     height: 40,
-    
   },
 ];
 
@@ -1433,53 +1823,49 @@ export const exploreItems = [
   {
     id: 1,
     name: "Ariana Grande",
-    imageUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTylcWMdKvrdW88y8JhlrkqTxwIFnVBIzYE6Svp6I2pSo6d1J6k",
+    imageUrl:
+      "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTylcWMdKvrdW88y8JhlrkqTxwIFnVBIzYE6Svp6I2pSo6d1J6k",
     description: "American Pop Singer",
     followers: 100000000,
-    platform:"instagram"
   },
   {
     id: 2,
     name: "Jesse Pollak",
-    imageUrl: "https://res.cloudinary.com/djp21wtxm/image/upload/w_336/v1642876781/i336x336-uYmY_vQW5pBA_wwbufe.png",
+    imageUrl:
+      "https://res.cloudinary.com/djp21wtxm/image/upload/w_336/v1642876781/i336x336-uYmY_vQW5pBA_wwbufe.png",
     description: "currently work on Base, which I created and lead day-to-day",
-    followers:  20000,
-    platform:"farcaster"
-    
+    followers: 20000,
   },
   {
     id: 3,
     name: "CarryMinati",
-    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOVTe6stYkk7vsctjmxkOcvAfFt4YRn9iM9Q&s",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOVTe6stYkk7vsctjmxkOcvAfFt4YRn9iM9Q&s",
     description: "Indian Youtuber",
     followers: 25000000,
-    platform:"instagram",
   },
   {
     id: 4,
     name: "Don Romero",
-    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRW47le8ZbNblIZFpeWYAfl8ZNY43nObhlA&s",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRW47le8ZbNblIZFpeWYAfl8ZNY43nObhlA&s",
     description: "Farcaster Creator",
     followers: 270156,
-    platform:"farcaster"
   },
   {
     id: 5,
     name: "PewDiePie",
-    imageUrl: "https://i.guim.co.uk/img/media/9d9759a25269ff4dd7f4c41bde320c4928bdfb65/0_24_3000_1800/master/3000.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=e4916223d76a56180788e7bfc1d25b02",
+    imageUrl:
+      "https://i.guim.co.uk/img/media/9d9759a25269ff4dd7f4c41bde320c4928bdfb65/0_24_3000_1800/master/3000.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=e4916223d76a56180788e7bfc1d25b02",
     description: "Popular Youtuber",
     followers: 110000000,
-    platform:"youtube"
-    
   },
   {
     id: 6,
     name: "Greg",
-    imageUrl: "https://pbs.twimg.com/profile_images/972210365198143493/R3bpWPqJ_400x400.jpg",
+    imageUrl:
+      "https://pbs.twimg.com/profile_images/972210365198143493/R3bpWPqJ_400x400.jpg",
     description: "CTO @ http://scorechain.com",
     followers: 26512,
-    platform:"farcaster"
   },
 ];
-
-

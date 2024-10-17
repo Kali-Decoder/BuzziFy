@@ -11,8 +11,9 @@ import {
 import Button from "@/components/Resusables/Button";
 import RecentBets from "@/components/explore/RecentBets";
 import BetNowModal from "@/components/explore/BetnowModal";
-import Countdown from "react-countdown"; // Import the Countdown component
-
+import Countdown from "react-countdown"; 
+import BetsGraph from "@/components/explore/BetsGraph";
+import { useDataContext } from "@/context/DataContext";
 // Define PoolDetails interface
 interface PoolDetails {
   name: string;
@@ -27,7 +28,7 @@ interface PoolDetails {
 
 // Sample pool data
 const poolDetails: Record<string, PoolDetails> = {
-  "1": {
+  "0": {
     name: "Pool One",
     description: "Betting pool for the upcoming championship.",
     totalBets: 150,
@@ -37,7 +38,7 @@ const poolDetails: Record<string, PoolDetails> = {
     userBets: 5,
     endTime: Date.now() + 1000000, // Example end time for the pool
   },
-  "2": {
+  "1": {
     name: "Pool Two",
     description: "Join us in betting on the next big game.",
     totalBets: 200,
@@ -47,6 +48,11 @@ const poolDetails: Record<string, PoolDetails> = {
     userBets: 0,
     endTime: Date.now() + 2000000, // Example end time for the pool
   },
+};
+
+const getDate = (timestamp: number) => {
+  const date = new Date(timestamp * 1000);
+  return date.toDateString();
 };
 
 const betsData = [
@@ -62,7 +68,8 @@ const PoolDetailPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<string>("overview");
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const { totalPools } = useDataContext();
+  console.log("totalPools", totalPools);
   useEffect(() => {
     if (id) {
       const pool = poolDetails[id as string];
@@ -82,7 +89,6 @@ const PoolDetailPage: React.FC = () => {
   if (error) {
     return <div className="p-4 text-red-500 text-center">{error}</div>;
   }
-
   return (
     <section className="text-white items-center flex flex-col justify-center container mx-auto px-4 py-12 mt-24 rounded-lg shadow-lg">
       {/* Tabs Section */}
@@ -110,107 +116,157 @@ const PoolDetailPage: React.FC = () => {
       </div>
       <div className="flex w-full flex-col md:flex-row justify-between gap-6">
         {/* Overview Section */}
-        {activeTab === "overview" && (
-          <div className="p-6 border border-gray-700 rounded-lg shadow-md md:w-3/4 bg-gray-900">
-            <div className="flex items-center justify-between w-full">
-              <h1 className="text-3xl mb-4 font-bold text-primary-500">
-                {poolData?.name}
-              </h1>
+        <div className="p-6 border border-gray-700 rounded-lg shadow-md md:w-3/4 bg-gray-900">
+          {activeTab === "overview" && (
+            <>
+              <div className="flex items-center justify-between w-full">
+                <h1 className="text-3xl mb-4 font-bold text-primary-500">
+                  {poolData?.name} #1234
+                </h1>
 
-              <Countdown
-                className="text-3xl text-green-400 mb-4"
-                date={poolData?.endTime}
-                intervalDelay={0}
-                precision={3}
-              />
-            </div>
-            <p className="text-lg mb-6">{poolData?.description}</p>
+                <Countdown
+                  className="text-3xl text-green-400 mb-4"
+                  date={1729195381480}
+                  intervalDelay={0}
+                  precision={3}
+                />
+              </div>
+              <p className="text-lg mb-6">{poolData?.description}</p>
 
-            <h2 className="text-3xl font-bold mt-8 mb-4">How It Works</h2>
-            <ol className="list-decimal list-inside space-y-4 mb-6 text-lg">
-              <li>Safely link your digital wallet to start placing bets.</li>
-              <li>Place your bets on the outcomes of your choice.</li>
-              <li>Earn points based on the accuracy of your predictions.</li>
-              <li>Monitor your performance and compete on the leaderboard.</li>
-            </ol>
-
-            <Button
-              containerClassName="flex items-center justify-center w-full"
-              icon="/images/Wallet.svg"
-              onClick={() => setIsModalOpen(true)}
-            >
-              Place a Bet
-            </Button>
-          </div>
-        )}
-
+              <h2 className="text-3xl font-bold mt-8 mb-4">How It Works</h2>
+              <ol className="list-decimal list-inside space-y-4 mb-6 text-lg">
+                <li>Safely link your digital wallet to start placing bets.</li>
+                <li>Place your bets on the outcomes of your choice.</li>
+                <li>Earn points based on the accuracy of your predictions.</li>
+                <li>
+                  Monitor your performance and compete on the leaderboard.
+                </li>
+                <li>All funds are safely distribute by Superfluid</li>
+              </ol>
+              <div>
+                <img
+                  src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*FtGFPTbekV99VFXO4iUgTQ.gif"
+                  alt=""
+                />
+              </div>
+            </>
+          )}
+          {activeTab === "recentBets" && (
+            <RecentBets betsData={totalPools[id as number]?.bets} />
+          )}
+        </div>
         {/* Pool Details Section */}
-        {activeTab === "overview" && (
-          <div className="p-6 border border-gray-700 rounded-lg shadow-md md:w-1/2 bg-gray-900">
-            <h2 className="text-3xl mb-2">Pool Details</h2>
-            <div className="grid grid-cols-2 space-y-8">
-              <div className="flex flex-col">
-                <p className="text-5xl text-blue-500 font-semibold">
-                  {poolData?.totalBets}
-                </p>
-                <div className="flex items-center">
-                  <FaEtsy className="text-yellow-400 mr-2" />
-                  <p>Total Bets</p>{" "}
+        <div className="p-6 border border-gray-700 rounded-lg shadow-md md:w-1/2 bg-gray-900">
+          {activeTab === "recentBets" && (
+            <BetsGraph betsData={totalPools[id as number]?.bets}/>
+          )}
+          {activeTab === "overview" && (
+            <>
+              <h2 className="text-3xl mb-2">Pool Details</h2>
+              <div className="grid grid-cols-2 gap-y-8 gap-x-4 mt-8">
+                <div className="flex flex-col">
+                  <p className="text-5xl text-blue-500 font-semibold">
+                    {totalPools[id as number]?.total_bets
+                      ? totalPools[id as number]?.total_bets
+                      : "---"}
+                  </p>
+                  <div className="flex items-center">
+                    <FaEtsy className="text-yellow-400 mr-2" />
+                    <p>Total Bets</p>{" "}
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-col">
-                <p className="text-5xl text-blue-500 font-semibold">
-                  {poolData?.totalAmountBet.toLocaleString()}
-                </p>
-                <div className="flex items-center">
-                  {" "}
-                  <FaChartLine className="text-green-400 mr-2" />
-                  <p>Total Amount Bet</p>{" "}
+                <div className="flex flex-col">
+                  <p className="text-blue-500 text-5xl font-semibold">
+                    {totalPools[id as number]?.total_amount
+                      ? totalPools[id as number]?.total_amount
+                      : "---"}
+                    <span className="text-yellow-400 text-xl"> Buzz</span>
+                  </p>
+                  <div className="flex items-center">
+                    {" "}
+                    <FaChartLine className="text-green-400 mr-2" />
+                    <p>Total Amount Bet</p>{" "}
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-col">
-                <p className="text-5xl text-blue-500 font-semibold">
-                  {poolData?.uniqueUsers}
-                </p>
-                <div className="flex items-center">
-                  {" "}
-                  <FaUserFriends className="text-purple-400 mr-2" />
-                  <p>Unique Users</p>{" "}
+                <div className="flex flex-col">
+                  <p className="text-5xl text-blue-500 font-semibold">
+                    {totalPools[id as number]?.total_bets}
+                  </p>
+                  <div className="flex items-center">
+                    {" "}
+                    <FaUserFriends className="text-purple-400 mr-2" />
+                    <p>Unique Users</p>{" "}
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-col">
-                <p className="text-5xl text-blue-500 font-semibold">
-                  {poolData?.averageBetSize.toFixed(2)}
-                </p>
-                <div className="flex items-center">
-                  {" "}
-                  <FaTrophy className="text-blue-400 mr-2" />
-                  <p>Average Bet Size</p>{" "}
+                <div className="flex flex-col">
+                  <p className="text-5xl text-blue-500 font-semibold">
+                    {totalPools[id as number]?.finalScore
+                      ? totalPools[id as number]?.finalScore
+                      : "---"}
+                  </p>
+                  <div className="flex items-center">
+                    {" "}
+                    <FaTrophy className="text-blue-400 mr-2" />
+                    <p>Final Score</p>{" "}
+                  </div>
                 </div>
-              </div>
-            </div>
+                <div className="flex flex-col">
+                  <p className="text-xl text-blue-500 font-semibold">
+                    {totalPools[id as number]?.startTime
+                      ? getDate(+totalPools[id as number]?.startTime)
+                      : "---"}
+                  </p>
+                  <div className="flex items-center">
+                    {" "}
+                    <FaTrophy className="text-blue-400 mr-2" />
+                    <p>Start Date</p>{" "}
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <p className="text-xl text-blue-500 font-semibold">
+                    {totalPools[id as number]?.endTime
+                      ? getDate(+totalPools[id as number]?.endTime)
+                      : "---"}
+                  </p>
+                  <div className="flex items-center">
+                    {" "}
+                    <FaTrophy className="text-blue-400 mr-2" />
+                    <p>End Date</p>{" "}
+                  </div>
+                </div>
 
-            {/* User Bets Section */}
-            <div className="mt-8 bg-gray-800 p-4 rounded-lg">
-              <h3 className="text-2xl font-bold mb-2">My Bets</h3>
-              {poolData?.userBets > 0 ? (
-                <p className="text-lg">
-                  You have placed{" "}
-                  <span className="font-semibold">{poolData?.userBets}</span>{" "}
-                  bets.
-                </p>
-              ) : (
-                <p className="text-lg text-gray-500">
-                  You have not placed any bets yet.
-                </p>
-              )}
-            </div>
-          </div>
-        )}
+                <div className="flex flex-col">
+                  <p className="text-xl text-blue-500 font-semibold">
+                    {totalPools[id as number]?.poolEnded ? (
+                      <span className="text-red text-2xl text-center">🔴</span>
+                    ) : (
+                      <span className="text-green-300 text-2xl text-center">
+                        🟢
+                      </span>
+                    )}
+                  </p>
+                  <div className="flex items-center">
+                    {" "}
+                    <FaTrophy className="text-blue-400 mr-2" />
+                    <p>Pool Status</p>{" "}
+                  </div>
+                </div>
+              </div>
+
+              <Button
+                containerClassName="flex items-center justify-center w-full mt-8"
+                icon="/images/Wallet.svg"
+                onClick={() => setIsModalOpen(true)}
+              >
+                Place a Bet
+              </Button>
+            </>
+          )}
+        </div>
       </div>
 
       {/* Recent Bets Section */}
-      {activeTab === "recentBets" && <RecentBets betsData={betsData} />}
+
       {/* Bet Now Modal */}
       <BetNowModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>

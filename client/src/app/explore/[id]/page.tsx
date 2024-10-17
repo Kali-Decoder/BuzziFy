@@ -8,12 +8,11 @@ import EngagementGraph from "@/components/explore/EngagementGraph";
 import LikeGraph from "@/components/explore/LikeGraph";
 import FollowerGraph from "@/components/explore/FollowersGraph";
 import Dropdown from "@/components/Resusables/Dropdown";
-import ActivityTab from "@/components/explore/ActivityTab";
 import Countdown from "react-countdown";
 import PerformanceTable from "@/components/explore/PerformanceTable";
 
 const mockProfileData = {
-  id: 1,
+  id: 0,
   name: "0xcBe600349CE4cF89842Bc371E4a4062140CDCCcD",
   username: "ariana19",
   imageUrl:
