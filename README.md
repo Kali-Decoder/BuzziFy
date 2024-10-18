@@ -71,16 +71,17 @@
 
 
 ### Platform UI 
-<img width="1470" alt="Screenshot 2024-08-08 at 2 03 52 PM" src="https://github.com/user-attachments/assets/ea999d8f-e6f7-47e1-987e-e44d57ceac36">
-<img width="1470" alt="Screenshot 2024-08-08 at 2 04 11 PM" src="https://github.com/user-attachments/assets/96bbc367-fd66-4624-afac-9b79407d3346">
+![6096066066871598693](https://github.com/user-attachments/assets/05a7be99-999a-4713-8634-4b1dfccdcae8)
+![6096066066871598694](https://github.com/user-attachments/assets/da1f1da8-8b3a-4999-af2e-968368d5800c)
+![6096066066871598691](https://github.com/user-attachments/assets/353c7753-bb8e-4e50-87af-fc169515a355)
+![6096066066871598692](https://github.com/user-attachments/assets/61be2eb2-7b3c-4873-9d70-9d0e27f73157)
+![6096066066871598697](https://github.com/user-attachments/assets/33c61804-d027-488a-aa3c-9bb91b078a46)
+![6096066066871598690](https://github.com/user-attachments/assets/063f144c-d4cc-4fbf-b57a-d96165677283)
 
-<img width="1469" alt="Screenshot 2024-08-08 at 2 28 29 AM" src="https://github.com/user-attachments/assets/2b584fdb-daa4-4bcd-b7be-190b2dd7f253">
-<img width="1470" alt="Screenshot 2024-08-08 at 2 28 41 AM" src="https://github.com/user-attachments/assets/2769e0b1-4374-4bed-8ea7-bc6efa4ae52a">
-<img width="1468" alt="Screenshot 2024-08-08 at 2 28 59 AM" src="https://github.com/user-attachments/assets/acb32b1a-7dda-42ea-9cea-72b18d2a31ff">
-<img width="1470" alt="Screenshot 2024-08-08 at 2 29 11 AM" src="https://github.com/user-attachments/assets/6d268e22-dfef-4eb1-b165-c3ac3b69a1b2">
-<img width="1470" alt="Screenshot 2024-08-08 at 2 30 30 AM" src="https://github.com/user-attachments/assets/4f245bdb-8183-4dab-b775-b370d0c89c82">
-<img width="1467" alt="Screenshot 2024-08-08 at 2 30 39 AM" src="https://github.com/user-attachments/assets/c98d29f4-c4bb-401e-ada9-1d80a482bb33">
-<img width="1470" alt="Screenshot 2024-08-08 at 2 55 17 AM" src="https://github.com/user-attachments/assets/1c044137-3758-4b9b-b83a-ac0ae3e71e25">
-<img width="1470" alt="Screenshot 2024-08-08 at 3 02 25 AM" src="https://github.com/user-attachments/assets/aba561ae-a44a-4277-8125-c8fd9676de4a">
+
+
+
+
+
 
 
