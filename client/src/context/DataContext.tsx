@@ -329,8 +329,10 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
             };
             poolBets.push(betObj);
           }
+         
           poolDetails.pool_data.pools[i].bets = poolBets;
         }
+        console.log("poolDetails", poolDetails);
         setTotalPools(poolDetails?.pool_data?.pools);
         return poolDetails;
       }
