@@ -1,11 +1,21 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDataContext } from "@/context/DataContext";
 import { useAccount } from "wagmi";
 const DashboardPage = () => {
   const { address } = useAccount();
-  const {tokenBalance} = useDataContext();
+  const { tokenBalance, connectPool, createPool, userBetsData } =
+    useDataContext();
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    if (address) {
+      address === "0xcfa038455b54714821f291814071161c9870B891"
+        ? setIsAdmin(true)
+        : setIsAdmin(false);
+    }
+  }, [address]);
 
+  console.log(userBetsData, "userBetsData");
   return (
     <>
       <div className="container mx-auto bg-transparent dark:bg-transparent text-white h-screen flex overflow-hidden text-sm relative pt-24 md:pt-28 lg:pt-30">
@@ -16,7 +26,6 @@ const DashboardPage = () => {
                 <div className="flex items-center text-3xl text-white">
                   <img
                     src="https://avatars.githubusercontent.com/u/82640789?v=4"
-                  
                     className="w-24 mr-4 rounded-full border-4"
                     alt="profile"
                   />
@@ -26,13 +35,15 @@ const DashboardPage = () => {
                     <p className="text-sm text-gray-500">{address}</p>
                   </div>
                 </div>
-                
+
                 <div className="ml-auto sm:flex hidden items-center justify-end">
                   <div className="text-right">
                     <div className="text-md text-gray-400">
                       Account balance:
                     </div>
-                    <div className="text-3xl text-white">{tokenBalance?tokenBalance:0} BUZZ</div>
+                    <div className="text-3xl text-white">
+                      {tokenBalance ? tokenBalance : 0} BUZZ
+                    </div>
                   </div>
                   <button className="w-8 h-8 ml-4 text-gray-400 shadow dark:text-gray-400 rounded-full flex items-center justify-center border border-gray-200 dark:border-gray-700">
                     <svg
@@ -64,7 +75,6 @@ const DashboardPage = () => {
                 >
                   Analytics
                 </a>
-              
               </div>
             </div>
             <div className="sm:p-7 p-4">
@@ -151,83 +161,54 @@ const DashboardPage = () => {
               <table className="w-full text-left">
                 <thead>
                   <tr className="text-gray-400">
-                    <th className="font-normal px-3 pt-0 pb-3 border-b border-gray-200 dark:border-gray-800">
-                      Type
+                    <th className="font-normal px-3 pt-0 pb-3 border-b uppercase border-gray-200 dark:border-gray-800">
+                      PoolId
                     </th>
-                    <th className="font-normal px-3 pt-0 pb-3 border-b border-gray-200 dark:border-gray-800">
-                      Where
+                    <th className="font-normal px-3 pt-0 pb-3 border-b uppercase border-gray-200 dark:border-gray-800">
+                      Bet Amount
                     </th>
-                    <th className="font-normal px-3 pt-0 pb-3 border-b border-gray-200 dark:border-gray-800 hidden md:table-cell">
-                      Description
+                    <th className="font-normal px-3 pt-0 pb-3 border-b uppercase border-gray-200 dark:border-gray-800 hidden md:table-cell">
+                      Target Score
                     </th>
-                    <th className="font-normal px-3 pt-0 pb-3 border-b border-gray-200 dark:border-gray-800">
-                      Amount
+                    <th className="font-normal px-3 pt-0 pb-3 border-b uppercase border-gray-200 dark:border-gray-800">
+                      Claimed Amount
                     </th>
-                    <th className="font-normal px-3 pt-0 pb-3 border-b border-gray-200 dark:border-gray-800 sm:text-gray-400 text-white">
-                      Date
+                    <th className="font-normal px-3 pt-0 pb-3 border-b uppercase border-gray-200 dark:border-gray-800 sm:text-gray-400 text-white">
+                      Claimed?
+                    </th>
+                    <th className="font-normal px-3 pt-0 pb-3 border-b uppercase border-gray-200 dark:border-gray-800 sm:text-gray-400 text-white">
+                      Pool Status
                     </th>
                   </tr>
                 </thead>
                 <tbody className="text-white">
-                 
-                  <tr>
-                    <td className="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800">
-                      <div className="flex items-center">
-                        <svg
-                          viewBox="0 0 24 24"
-                          className="w-4 mr-5 text-green-500"
-                          stroke="currentColor"
-                          stroke-width="3"
-                          fill="none"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        >
-                          <line x1="12" y1="5" x2="12" y2="19"></line>
-                          <polyline points="19 12 12 19 5 12"></polyline>
-                        </svg>
-                        Income
-                      </div>
-                    </td>
-                    <td className="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800">
-                      <div className="flex items-center">
-                        <img
-                          className="w-7 h-7 mr-2.5 border border-gray-200 dark:border-gray-800 rounded-full"
-                          src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                          alt="profile"
-                        />
-                        Jane Cooper
-                      </div>
-                    </td>
-                    <td className="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800 md:table-cell hidden">
-                      Invoice No: 12993
-                    </td>
-                    <td className="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800 text-green-500">
-                      + $24.00
-                    </td>
-                    <td className="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800">
-                      <div className="flex items-center">
-                        <div className="sm:flex hidden flex-col">
-                          01.04.2020
-                          <div className="text-gray-400 text-xs">09:45 AM</div>
-                        </div>
-                        <button className="w-8 h-8 inline-flex items-center justify-center text-gray-400 ml-auto">
-                          <svg
-                            viewBox="0 0 24 24"
-                            className="w-5"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            fill="none"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <circle cx="12" cy="12" r="1"></circle>
-                            <circle cx="19" cy="12" r="1"></circle>
-                            <circle cx="5" cy="12" r="1"></circle>
-                          </svg>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
+                  {userBetsData?.length &&
+                    userBetsData?.map((bet) => {
+                      return (
+                        <>
+                          <tr>
+                            <td className="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800">
+                              {bet?.poolId}
+                            </td>
+                            <td className="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800">
+                              {bet?.amount}
+                            </td>
+                            <td className="sm:p-3 py-2 px-1 border-b border-gray-200 text-blue-500 dark:border-gray-800 md:table-cell hidden">
+                              {bet?.targetScore}
+                            </td>
+                            <td className="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800 text-green-500">
+                              {bet?.claimedAmount? bet?.claimedAmount : "---"}
+                            </td>
+                            <td className="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800">
+                              {bet?.claimed ? "Yes" : "No"}
+                            </td>
+                            <td className="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800">
+                              {bet?.status ? "Completed" : "Ongoing"}
+                            </td>
+                          </tr>
+                        </>
+                      );
+                    })}
                 </tbody>
               </table>
               <div className="flex w-full mt-5 space-x-2 justify-end">
@@ -270,6 +251,41 @@ const DashboardPage = () => {
                   </svg>
                 </button>
               </div>
+
+              {isAdmin && (
+                <>
+                  <h1 className="mt-10 font-semibold text-3xl">
+                    Admin Functionalities
+                  </h1>
+                  <div className="flex gap-x-3 mt-4">
+                    <button className="mt-4 md:mt-0 bg-gradient-to-r from-s4 via-blue-500 to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-lg transition hover:from-s4 hover:via-blue-600 hover:to-purple-700">
+                      Set Score
+                    </button>
+
+                    <button className="mt-4 md:mt-0 bg-gradient-to-r from-s4 via-blue-500 to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-lg transition hover:from-s4 hover:via-blue-600 hover:to-purple-700">
+                      Give Units
+                    </button>
+
+                    <button
+                      onClick={createPool}
+                      className="mt-4 md:mt-0 bg-gradient-to-r from-s4 via-blue-500 to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-lg transition hover:from-s4 hover:via-blue-600 hover:to-purple-700"
+                    >
+                      Create Pool
+                    </button>
+
+                    <button
+                      onClick={connectPool}
+                      className="mt-4 md:mt-0 bg-gradient-to-r from-s4 via-blue-500 to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-lg transition hover:from-s4 hover:via-blue-600 hover:to-purple-700"
+                    >
+                      Connect Pool
+                    </button>
+
+                    <button className="mt-4 md:mt-0 bg-gradient-to-r from-s4 via-blue-500 to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-lg transition hover:from-s4 hover:via-blue-600 hover:to-purple-700">
+                      Distribute 0.1 Ether (Instant Distribution Pool)
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>

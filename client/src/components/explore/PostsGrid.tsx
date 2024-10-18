@@ -38,6 +38,13 @@ const PostsGrid: React.FC<PostsGridProps> = ({ posts }) => {
     }
   };
 
+  const socials = [
+    { name: "Instagram", color: "bg-blue-600" },
+    { name: "Twitter", color: "bg-blue-400" },
+    { name: "Farcaster", color: "bg-pink-500" },
+    { name: "YouTube", color: "bg-red" },
+  ]
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
       {posts?.map((post) => (
@@ -59,6 +66,10 @@ const PostsGrid: React.FC<PostsGridProps> = ({ posts }) => {
           {/* Active or Ended Tag */}
           <div className={`absolute top-2 right-2 px-3 py-1 rounded-lg text-xs font-bold ${!post?.active ? 'bg-green-600' : 'bg-red'} text-white shadow-lg`}>
             {!post?.active ? "Active" : "Ended"}
+          </div>
+
+          <div className={`absolute top-2 right-20 px-3 py-1 rounded-lg text-xs font-bold ${socials[post?.id]?.color} text-white shadow-lg`}>
+            {socials[post?.id]?.name}
           </div>
 
           {/* Pool Name */}

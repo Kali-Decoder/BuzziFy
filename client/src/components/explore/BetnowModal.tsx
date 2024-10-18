@@ -4,7 +4,7 @@ import Slider from "react-input-slider"; // Ensure to install this package or us
 import { IoClose } from "react-icons/io5"; // Import close icon from react-icons
 import { useDataContext } from "@/context/DataContext";
 interface BetNowModalProps {
-  id : string,
+  id : string[],
   isOpen: boolean;
   onClose: () => void;
 }

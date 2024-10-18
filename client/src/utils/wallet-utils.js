@@ -8,7 +8,6 @@ import {
 } from "@rainbow-me/rainbowkit/wallets";
 import { createConfig } from "wagmi";
 
-
 export const projectId = "87106bd465234d097b8a51ba585bf799";
 
 export const connectors = connectorsForWallets(

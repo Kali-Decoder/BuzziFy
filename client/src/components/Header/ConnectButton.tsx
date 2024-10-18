@@ -35,13 +35,13 @@ export const ConnectButton2 = () => {
         };
 
         // Added check if chainDetail is null/undefined and provide loading state
-        // if (!chainDetail) {
-        //   return (
-        //     <div className="flex flex-row items-center gap-2">
-        //       <Button containerClassName="flex items-center">Loading...</Button>
-        //     </div>
-        //   );
-        // }
+        if (!chainDetail) {
+          return (
+            <div className="flex flex-row items-center gap-2">
+              <Button containerClassName="flex items-center">Loading...</Button>
+            </div>
+          );
+        }
 
         return (
           <div

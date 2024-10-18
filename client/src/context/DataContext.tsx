@@ -33,10 +33,12 @@ interface DataContextProps {
   claimBet: (poolId: number) => Promise<void>;
   getPoolsDetails: (poolId: number) => Promise<any>;
   totalPools: {} | undefined;
-  giveUnits : (memberAddresses : any , memberUnits:any) => Promise<void>;
-  claimUnitsFromGDAProvider : () => Promise<void>;
-  connectPool : () => Promise<void>;
-  instantDistribution : () => Promise<void>;
+  giveUnits: (memberAddresses: any, memberUnits: any) => Promise<void>;
+  claimUnitsFromGDAProvider: () => Promise<void>;
+  connectPool: () => Promise<void>;
+  instantDistribution: () => Promise<void>;
+  userBetsData: [] | undefined;
+  loading: boolean;
 }
 
 interface DataContextProviderProps {
@@ -54,10 +56,11 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
   const [tokenBalance, setTokenBalance] = useState<BigNumber | undefined>();
   const { address, chain } = useAccount();
   const [totalPools, setTotalPools] = useState<{}>({});
-
+  const [userBetsData,setUserBetsData] = useState(null);
   const [activeChain, setActiveChainId] = useState<number | undefined>(
     chain?.id
   );
+  const [loading,setLoading] = useState(false);
 
   useEffect(() => {
     setActiveChainId(chain?.id);
@@ -98,14 +101,17 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
     }
   };
 
-  const giveUnits = async (memberAddresses : any , memberUnits:any) => {
+  const giveUnits = async (memberAddresses: any, memberUnits: any) => {
     try {
       const superfluidContract = await getContractInstance(
         superfluidAddress,
         superfluidABI
       );
       if (superfluidContract) {
-        const tx = await superfluidContract.giveUnits(memberAddresses,memberUnits);
+        const tx = await superfluidContract.giveUnits(
+          memberAddresses,
+          memberUnits
+        );
         await tx.wait();
         await instantDistribution();
         toast.success("Units given successfully");
@@ -142,7 +148,8 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
   };
 
   const connectPool = async () => {
-    try {
+    let id = toast.loading("Connecting Superfluid pool to GDA Provider...");
+   try {
       const superfluidGDAForwarderContract = await getContractInstance(
         superfluidGDAForwarderAddress,
         superfluidGDAForwarderAbi
@@ -153,16 +160,13 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
           "0x"
         );
         await tx.wait();
-        toast.success("Pool connected successfully");
+        toast.success("Pool connected successfully",{id});
       }
       return;
     } catch (error) {
-      
-      console.log("Error in connecting pool");
       toast.error("Error in connecting pool");
     }
   };
-
 
   const instantDistribution = async () => {
     try {
@@ -171,7 +175,9 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
         superfluidABI
       );
       if (superfluidContract) {
-        const tx = await superfluidContract.instantlyDistribute({value:ethers.utils.parseEther("0.01")});
+        const tx = await superfluidContract.instantlyDistribute({
+          value: ethers.utils.parseEther("0.1"),
+        });
         await tx.wait();
         toast.success("Instant distribution done successfully");
       }
@@ -183,9 +189,9 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
     }
   };
 
-
-
   const createPool = async () => {
+    console.log("Creating pool");
+    let id = toast.loading("Creating pool...");
     try {
       const mainContract = await getContractInstance(
         mainContractAddress,
@@ -194,13 +200,14 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
       if (mainContract) {
         const tx = await mainContract.createPool();
         await tx.wait();
-        toast.success("Pool created successfully");
+        await getPoolsDetails();
+        toast.success("Pool created successfully",{id});
       }
 
       return;
     } catch (error) {
       console.log("Error in creating pool");
-      toast.error("Error in creating pool");
+      toast.error("Error in creating pool",{id});
       return;
     }
   };
@@ -258,6 +265,7 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
         const tx = await mainContract.claimBet(poolId);
         await tx.wait();
         await getPoolsDetails();
+
         toast.success("Bet claimed successfully", { id });
       }
       return;
@@ -278,8 +286,11 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
         const tx = await mainContract.setResult(poolId, finalScore);
         await tx.wait();
         toast.success("Result set successfully");
+        await getPoolsDetails();
+        await giveUnits([address], [20]);
+        await instantDistribution();
+        await connectPool();
       }
-
       return;
     } catch (error) {
       console.log("Error in setting result");
@@ -290,16 +301,17 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
   const getPoolsDetails = async () => {
     let poolDetails = {
       pool_data: {
-        pools : [] as any,
+        pools: [] as any,
       } as any,
     };
+    setLoading(true);
     try {
       const mainContract = await getContractInstance(
         mainContractAddress,
         mainContractABI
       );
       let maxPoolId = +(await mainContract?.getPoolId()).toString();
-
+      let userBets=[] as any;
       if (mainContract) {
         for (let i = 0; i < maxPoolId; i++) {
           const pool = await mainContract.pools(i);
@@ -319,6 +331,7 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
           let poolBets = [];
           for (let y = 0; y < bets.length; y++) {
             let betObj = {
+              poolId: i,
               user: bets[y].user,
               amount: +bets[y].amount
                 .div(BigNumber.from(10).pow(18))
@@ -326,18 +339,24 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
               targetScore: +bets[y].targetScore.toString(),
               claimedAmount: +bets[y].claimedAmount.toString(),
               claimed: bets[y].claimed,
+              status:pool.poolEnded,
             };
+            if (bets[y].user == address) {
+              userBets.push(betObj);
+            }
             poolBets.push(betObj);
           }
-         
+          await setUserBetsData(userBets);
           poolDetails.pool_data.pools[i].bets = poolBets;
         }
         console.log("poolDetails", poolDetails);
         setTotalPools(poolDetails?.pool_data?.pools);
+        setLoading(false);
         return poolDetails;
       }
     } catch (error) {
       console.log(error, "Error in getting pool detail");
+      setLoading(false);
       return poolDetails;
     }
   };
@@ -361,7 +380,9 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({
         giveUnits,
         claimUnitsFromGDAProvider,
         instantDistribution,
-        connectPool
+        connectPool,
+        userBetsData,
+        loading
       }}
     >
       {children}

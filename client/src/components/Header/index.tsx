@@ -7,8 +7,7 @@ import { useAccount } from "wagmi";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-
-
+import ChainDropdown from "../ChainDropdown/index";
 const Header = () => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -116,7 +115,7 @@ const Header = () => {
 
         
         <div className="flex items-center space-x-6">
-          {/* <ChainDropdown /> */}
+          <ChainDropdown />
           {!isOpen && <ConnectButton2 />}
         </div>
 
@@ -174,9 +173,9 @@ const Header = () => {
                   </li>
                 </>
               )}
-              {/* <li className="nav-li mb-4">
+              <li className="nav-li mb-4">
                 <ChainDropdown />
-              </li> */}
+              </li>
               <li className="nav-li mt-4">
                 <ConnectButton2 />
               </li>

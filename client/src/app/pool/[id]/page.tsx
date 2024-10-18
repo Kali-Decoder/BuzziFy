@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import {
   FaTrophy,
   FaChartLine,
@@ -11,7 +11,7 @@ import {
 import Button from "@/components/Resusables/Button";
 import RecentBets from "@/components/explore/RecentBets";
 import BetNowModal from "@/components/explore/BetnowModal";
-import Countdown from "react-countdown"; 
+import Countdown from "react-countdown";
 import BetsGraph from "@/components/explore/BetsGraph";
 import { useDataContext } from "@/context/DataContext";
 // Define PoolDetails interface
@@ -26,61 +26,30 @@ interface PoolDetails {
   endTime: number; // New field to store pool end time
 }
 
-// Sample pool data
-const poolDetails: Record<string, PoolDetails> = {
-  "0": {
-    name: "Pool One",
-    description: "Betting pool for the upcoming championship.",
-    totalBets: 150,
-    totalAmountBet: 7500,
-    uniqueUsers: 30,
-    averageBetSize: 50,
-    userBets: 5,
-    endTime: Date.now() + 1000000, // Example end time for the pool
-  },
-  "1": {
-    name: "Pool Two",
-    description: "Join us in betting on the next big game.",
-    totalBets: 200,
-    totalAmountBet: 10000,
-    uniqueUsers: 40,
-    averageBetSize: 50,
-    userBets: 0,
-    endTime: Date.now() + 2000000, // Example end time for the pool
-  },
-};
 
 const getDate = (timestamp: number) => {
   const date = new Date(timestamp * 1000);
   return date.toDateString();
 };
 
-const betsData = [
-  { id: 1, amount: 100, user: "User1", status: "Completed" },
-  { id: 2, amount: 50, user: "User2", status: "Pending" },
-  // Add more bets as needed
-];
-
 const PoolDetailPage: React.FC = () => {
   const { id } = useParams();
-  const [poolData, setPoolData] = useState<PoolDetails | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<string>("overview");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { totalPools } = useDataContext();
-  console.log("totalPools", totalPools);
-  useEffect(() => {
-    if (id) {
-      const pool = poolDetails[id as string];
-      if (pool) {
-        setPoolData(pool);
-      } else {
-        setError("Pool Not Found");
-      }
-      setLoading(false);
+  const [isBetted, setIsBetted] = useState(false);
+  const { totalPools, userBetsData,loading } = useDataContext();
+  const router = useRouter();
+  useEffect(() => { 
+    const val =
+      userBetsData?.length > 0 &&
+      userBetsData?.find((item) => item?.poolId == id);
+    if (val) {
+      setIsBetted(true);
+    } else {
+      setIsBetted(false);
     }
-  }, [id]);
+  }, [userBetsData]);
 
   if (loading) {
     return <div className="p-4 text-center">Loading...</div>;
@@ -92,6 +61,14 @@ const PoolDetailPage: React.FC = () => {
   return (
     <section className="text-white items-center flex flex-col justify-center container mx-auto px-4 py-12 mt-24 rounded-lg shadow-lg">
       {/* Tabs Section */}
+      <div className="w-full flex flex-start ">
+        <button
+          onClick={() => router.back()}
+          className="mb-2 text-gray-400 p-2 rounded-md transition duration-300"
+        >
+          Back
+        </button>
+      </div>
       <div className="flex flex-start w-full space-x-4 mb-2">
         <button
           onClick={() => setActiveTab("overview")}
@@ -121,17 +98,19 @@ const PoolDetailPage: React.FC = () => {
             <>
               <div className="flex items-center justify-between w-full">
                 <h1 className="text-3xl mb-4 font-bold text-primary-500">
-                  {poolData?.name} #1234
+                  Pool #000{id}
                 </h1>
 
                 <Countdown
                   className="text-3xl text-green-400 mb-4"
-                  date={1729195381480}
+                  date={
+                     isNaN(Number(totalPools[id as number]?.endTime)) ? new Date(Date.now()) : new Date(Number(totalPools[id as number]?.endTime) * 1000)
+                  }
                   intervalDelay={0}
                   precision={3}
                 />
               </div>
-              <p className="text-lg mb-6">{poolData?.description}</p>
+              <p className="text-lg mb-6">Betting pool for the upcoming championship.</p>
 
               <h2 className="text-3xl font-bold mt-8 mb-4">How It Works</h2>
               <ol className="list-decimal list-inside space-y-4 mb-6 text-lg">
@@ -158,8 +137,7 @@ const PoolDetailPage: React.FC = () => {
         {/* Pool Details Section */}
         <div className="p-6 border border-gray-700 rounded-lg shadow-md md:w-1/2 bg-gray-900">
           {activeTab === "recentBets" && (
-            <BetsGraph betsData={totalPools[id as number]?.bets}/>
-            
+            <BetsGraph betsData={totalPools[id as number]?.bets} />
           )}
           {activeTab === "overview" && (
             <>
@@ -253,9 +231,7 @@ const PoolDetailPage: React.FC = () => {
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <p className="text-4xl text-red font-semibold">
-                    300
-                  </p>
+                  <p className="text-4xl text-red font-semibold">300</p>
                   <div className="flex items-center">
                     {" "}
                     <FaTrophy className="text-blue-400 mr-2" />
@@ -264,13 +240,22 @@ const PoolDetailPage: React.FC = () => {
                 </div>
               </div>
 
-              <Button
-                containerClassName="flex items-center justify-center w-full mt-8"
-                icon="/images/Wallet.svg"
-                onClick={() => setIsModalOpen(true)}
-              >
-                Place a Bet
-              </Button>
+              {isBetted ? (
+                <Button
+                  containerClassName="flex items-center justify-center w-full mt-8"
+                  icon="/images/Wallet.svg"
+                >
+                  You Already Bet
+                </Button>
+              ) : (
+                <Button
+                  containerClassName="flex items-center justify-center w-full mt-8"
+                  icon="/images/Wallet.svg"
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  Place a Bet
+                </Button>
+              )}
             </>
           )}
         </div>
@@ -279,7 +264,11 @@ const PoolDetailPage: React.FC = () => {
       {/* Recent Bets Section */}
 
       {/* Bet Now Modal */}
-      <BetNowModal id={id} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <BetNowModal
+        id={id}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </section>
   );
 };

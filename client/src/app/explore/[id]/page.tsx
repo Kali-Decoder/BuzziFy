@@ -1,5 +1,5 @@
 "use client";
-import { useParams } from "next/navigation";
+import { useParams,useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import ProfileHeader from "@/components/explore/ProfileHeader";
 import ProfileTabs from "@/components/explore/ProfileTabs";
@@ -14,6 +14,7 @@ import { useDataContext } from "@/context/DataContext";
 const ProfilePage: React.FC = () => {
   const { totalPools } = useDataContext();
   const [transfomedPoolsData,setTransfomedPoolsData] = useState([]);
+  const router = useRouter();
   const getTransformedPools = () => {
     const transformedPools =  totalPools?.length && totalPools?.map((pool) => ({
       id: pool?.poolId,
@@ -130,6 +131,12 @@ const ProfilePage: React.FC = () => {
 
   return (
     <section className="container mx-auto px-4 py-12 mt-24">
+      <div className="w-full flex flex-start ">
+        <button
+          onClick={() => router.back()}
+          className="mb-2 text-gray-400 p-2 rounded-md transition duration-300"
+        >Back</button>
+      </div>
       <ProfileHeader
         name={profileData.name}
         username={profileData.username}
